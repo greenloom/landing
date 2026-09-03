@@ -17,6 +17,13 @@
 	--gl-text-medium: 1.0625rem;
 	--gl-text-x-large: clamp(2rem, 1.4rem + 2vw, 2.75rem);
 	--gl-text-xx-large: clamp(2.75rem, 1.6rem + 4vw, 4.5rem);
+
+	/* Marketing dark + lime */
+	--gl-lime: #a3e635;
+	--gl-dark: #0a0b09;
+	--gl-ink-light: #e6e6e3;
+	--gl-muted: #f4f4f2;
+	--gl-glass: rgba(255, 255, 255, 0.06);
 }
 
 *,

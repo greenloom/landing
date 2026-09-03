@@ -2,27 +2,46 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { withBase } from '../lib/paths';
 ---
 
-<BaseLayout title="Privacy · Green Loom" description="How Green Loom handles follow-update email and consent.">
+<BaseLayout title="Privacy · Green Loom" description="Green Loom privacy notice.">
 	<Header />
-	<main class="gl-privacy">
+	<main class="mkt-privacy">
 		<h1>Privacy</h1>
 		<p>
-			Green Loom collects email and optional role only when you ask to follow updates, and only
-			after you consent. We use that contact to send progress, decisions, and ways to weigh in.
+			Green Loom does not collect personal information on this marketing site except where
+			explicitly provided for updates. No age gates, lab claims, or license assertions are
+			made without a source.
 		</p>
 		<p>
-			We do not sell your email. You can unsubscribe anytime from any message. Form processing
-			vendor is not finalized yet (Q-002); when chosen, this page will name the processor and
+			When a follow form or booking form is added, this page will name the processor and
 			retention details.
 		</p>
-		<p>
-			Questions about privacy: contact the Green Loom team through the channels listed on
-			greenloom.com when available.
-		</p>
-		<p><a href={withBase()}>Back to Green Loom</a></p>
+		<p><a href="/">Back to Green Loom</a></p>
 	</main>
 	<Footer />
 </BaseLayout>
+
+<style>
+	.mkt-privacy {
+		max-width: 42rem;
+		margin: 0 auto;
+		padding: 3rem 1.25rem 4rem;
+		color: #e6e6e3;
+		background: #0a0b09;
+	}
+	.mkt-privacy h1 {
+		font-size: 1.6rem;
+		margin: 0 0 1rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+	.mkt-privacy p {
+		color: #b8b8b3;
+		line-height: 1.55;
+		margin: 0 0 0.9rem;
+	}
+	.mkt-privacy a {
+		color: #a3e635;
+	}
+</style>

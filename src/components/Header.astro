@@ -1,23 +1,62 @@
 ---
-import { withBase, withHash } from '../lib/paths';
-
-interface Props {
-	homeHref?: string;
-	followHref?: string;
-}
-
-const {
-	homeHref = withBase(),
-	followHref = withHash('follow'),
-} = Astro.props;
+import { withBase } from '../lib/paths';
 ---
 
-<header>
-	<div class="gl-sticky-bar">
-		<div class="gl-brand-mark">
+<header class="mkt-header">
+	<div class="mkt-header__inner">
+		<a href={withBase()} class="mkt-brand" aria-label="Green Loom">
 			<img src={withBase('img/green-loom-logo.svg')} alt="" width="18" height="18" />
-			<a href={homeHref}>Green Loom</a>
-		</div>
-		<a href={followHref}>Follow updates</a>
+			<span>Green Loom</span>
+		</a>
+		<a href="#book" class="mkt-book">Book a walkthrough</a>
 	</div>
 </header>
+
+<style>
+	.mkt-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: rgba(10, 11, 9, 0.92);
+		backdrop-filter: saturate(140%) blur(10px);
+		-webkit-backdrop-filter: saturate(140%) blur(10px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	}
+	.mkt-header__inner {
+		max-width: 72rem;
+		margin: 0 auto;
+		padding: 0.6rem 1.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.mkt-brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: #e6e6e3;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 0.95rem;
+		letter-spacing: -0.01em;
+	}
+	.mkt-brand img {
+		display: block;
+		filter: brightness(0) invert(0.92);
+	}
+	.mkt-book {
+		color: #a3e635;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 0.9rem;
+		letter-spacing: -0.01em;
+		padding: 0.35rem 0.75rem;
+		border: 1px solid rgba(163, 230, 53, 0.35);
+		border-radius: 999px;
+		transition: background 120ms ease, color 120ms ease;
+	}
+	.mkt-book:hover {
+		background: rgba(163, 230, 53, 0.12);
+		color: #b9f04f;
+	}
+</style>

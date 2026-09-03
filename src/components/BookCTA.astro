@@ -1,0 +1,47 @@
+---
+interface Props {
+	href?: string;
+	class?: string;
+}
+
+const { href = '#book', class: className = '' } = Astro.props;
+---
+
+<a
+	href={href}
+	class:list={['book-cta', className]}
+	data-cta="book-walkthrough"
+>
+	Book a walkthrough
+</a>
+
+<style>
+	.book-cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem 1.25rem;
+		border-radius: 999px;
+		background: #fff;
+		color: #111;
+		font-weight: 600;
+		font-size: 0.95rem;
+		letter-spacing: -0.01em;
+		text-decoration: none;
+		transition: transform 80ms ease, background 120ms ease, color 120ms ease;
+		white-space: nowrap;
+	}
+	.book-cta:hover {
+		background: #f1f1ef;
+		transform: translateY(-1px);
+	}
+	.gl-dark .book-cta,
+	.gl-marketing .book-cta {
+		background: #a3e635;
+		color: #0a0b09;
+	}
+	.gl-dark .book-cta:hover,
+	.gl-marketing .book-cta:hover {
+		background: #b9f04f;
+	}
+</style>

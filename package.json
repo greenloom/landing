@@ -1,7 +1,7 @@
 {
   "name": "green-loom-landing",
   "type": "module",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "private": true,
   "engines": {
     "node": ">=22.12.0"
@@ -13,7 +13,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^4.2.0",
     "@fontsource/figtree": "^5.3.0",
-    "astro": "^7.1.6"
+    "@greenloom/ui": "file:./design-system/@greenloom/ui",
+    "astro": "^7.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

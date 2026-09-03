@@ -620,3 +620,31 @@ summary {
 		align-items: flex-start;
 	}
 }
+
+/* ==========================================================================
+   Marketing dark ground — (marketing) owns the document
+   No docs rail, no white chrome. Dark olive/black.
+   ========================================================================== */
+
+.gl-marketing,
+body.gl-marketing {
+	background: #0a0b09;
+	color: #e6e6e3;
+}
+
+.gl-marketing a {
+	color: #a3e635;
+}
+
+.gl-marketing a:hover {
+	color: #b9f04f;
+}
+
+/* Remove any accidental white surfaces from old tiles on marketing routes */
+.gl-marketing .gl-tile,
+.gl-marketing .gl-tile--light,
+.gl-marketing .gl-tile--surface,
+.gl-marketing .gl-tile--dark {
+	background: #0a0b09;
+	color: #e6e6e3;
+}

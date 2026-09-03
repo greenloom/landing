@@ -12,14 +12,7 @@ interface Props {
 	description?: string;
 }
 
-const {
-	title = 'Green Loom',
-	description = 'Modular tools for regulated cannabis retail.',
-} = Astro.props;
-
-const imgHero = `url(${withBase('img/green-loom-rhythm-hero.jpg')})`;
-const imgProblem = `url(${withBase('img/green-loom-systems-flow.jpg')})`;
-const imgGoals = `url(${withBase('img/green-loom-capabilities-plume.jpg')})`;
+const { title = 'Green Loom', description = 'Two systems. One operation.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -32,7 +25,7 @@ const imgGoals = `url(${withBase('img/green-loom-capabilities-plume.jpg')})`;
 		<link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
 		<title>{title}</title>
 	</head>
-	<body style={`--gl-img-hero: ${imgHero}; --gl-img-problem: ${imgProblem}; --gl-img-goals: ${imgGoals};`}>
+	<body class="gl-marketing">
 		<slot />
 	</body>
 </html>
