@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="We’re building software that makes it easier to open a hemp store, serve customers, and stay on top of the rules.">
+  <meta property="og:title" content="Green Loom | Where does Georgia grow from here?">
+  <meta property="og:description" content="Software for selling hemp products, serving customers, and staying on top of the rules.">
+  <title>Green Loom | Where does Georgia grow from here?</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%232f7414' d='M14 2h4v12h12v4H18v12h-4V18H2v-4h12z'/%3E%3C/svg%3E">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="assets/demos/kit/kit.css">
+  <link rel="stylesheet" href="assets/demos/demos.css">
+  <style>
+@font-face{font-family:Inter;src:url('assets/fonts/inter.ttf') format('truetype');font-weight:100 900;font-display:swap}
+
+:root{
+  color-scheme:light;
+  --ink:#0f1511;
+  --ink-2:#2b332d;
+  --muted:#5e6862;
+  --faint:#5e6862;
+  --line:#e4e8e3;
+  --green:#52b22b;
+  --green-deep:#2f7414;
+  --green-tint:#4a9e2429;
+  --text-1:#141414;
+  --text-2:#3d3d3d;
+  --text-3:#6b6b6b;
+  --hairline:rgba(0,0,0,.09);
+  --gutter:32px;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+  color:var(--ink);
+  background:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;position:relative;isolation:isolate;background:#fff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+button,a,input{-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--green-deep);outline-offset:4px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;top:-80px;left:24px;z-index:5;padding:10px 14px;color:#fff;background:var(--ink);border-radius:8px;font-size:14px;text-decoration:none}
+.skip-link:focus{top:16px}
+
+/* Header (Figma 861:5729) */
+.site-header{position:relative;z-index:1;display:flex;align-items:center;gap:24px;max-width:1280px;margin:0 auto;padding:32px var(--gutter) 0}
+.brand{display:grid;place-items:center;width:44px;height:44px;margin:0 -12px}
+.brand img{display:block}
+.prototype-nav{display:flex;gap:24px;font-size:14px;font-weight:500;color:var(--text-2)}
+.prototype-nav span{cursor:default}
+.prototype-nav a{color:inherit;text-decoration:none}
+.prototype-nav a:hover{color:var(--text-1)}
+.notify-button{margin-left:auto;display:inline-flex;align-items:center;padding:14px 32px;border:0;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,rgba(0,0,0,0) 50%),#333;color:#fff;font-size:16px;line-height:16px;font-weight:600;white-space:nowrap;text-shadow:0 1px 0 rgba(0,0,0,.88);filter:drop-shadow(0 1px 2px rgba(0,0,0,.18)) drop-shadow(0 6px 14px rgba(0,0,0,.12));text-decoration:none;transition:background-color .2s}
+.notify-button:hover{background-color:#1f1f1f}
+
+/* Hero stage (Figma 861:5727): soft grey wash, grass running behind a frosted card */
+.hero-shell{position:relative;overflow:hidden;padding-bottom:128px;background:linear-gradient(to bottom,rgba(0,0,0,.04),rgba(255,255,255,0) 922px),#fafafa}
+.hero-grass{position:absolute;top:255px;left:50%;width:2172px;max-width:none;height:auto;transform:translateX(calc(-50% - 31px));mix-blend-mode:multiply;pointer-events:none;user-select:none}
+.hero{position:relative;width:min(calc(100% - 2 * var(--gutter)),1040px);margin:0 auto;padding-top:92px}
+/* Headline and tagline stacked and centred over the card (Figma 863:5939) */
+.hero-intro{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(100%,960px);margin:0 auto 72px;text-align:center}
+h1{margin:0;color:var(--text-1);font-size:52px;line-height:1.1;font-weight:900;letter-spacing:-.022em;text-wrap:balance}
+h1 em{color:var(--green);font-style:normal}
+.tagline{margin:0;max-width:36em;color:var(--text-3);font-size:17px;line-height:1.55;text-wrap:balance}
+
+/* Story card */
+/* Liquid glass, light variant (webtricks.dev/blog/liquid-glass-css):
+   tint → blur + saturation → asymmetric rim → diagonal sheen → (Chromium) refraction */
+.stories{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;gap:2px;padding:20px 32px 12px;border-radius:32px;
+  background:rgba(255,255,255,.66);
+  -webkit-backdrop-filter:blur(14px) saturate(125%);backdrop-filter:blur(14px) saturate(125%);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:0 32px 48px rgba(0,0,0,.08),inset 0 1px 1px rgba(255,255,255,.9),inset 0 -1px 1px rgba(0,0,0,.06)}
+.stories::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.15) 30%,transparent 60%)}
+/* Refraction: the grass visibly bends through the pane. Safari drops the whole value if url() is present, hence the guard. */
+@supports (backdrop-filter:url('#glass-refraction')){
+  .stories{backdrop-filter:blur(10px) saturate(125%) url('#glass-refraction')}
+}
+@media(prefers-reduced-transparency:reduce){
+  .stories{background:rgba(250,250,250,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+.story-nav{display:flex;justify-content:center}
+.story-tabs{position:relative;display:inline-flex;padding:8px 16px}
+.story-tab{position:relative;z-index:1;height:34px;padding:0 24px;color:var(--text-3);background:none;border:0;border-radius:40px;font-size:14px;line-height:1;font-weight:400;white-space:nowrap;transition:background-color .2s,color .25s var(--ease-out)}
+.story-tab[aria-selected=true]{color:var(--text-1)}
+/* Selected capsule: a soft halo that slides between tabs */
+.tab-indicator{position:absolute;left:0;top:8px;height:34px;overflow:hidden;background:rgba(255,255,255,.85);border-radius:40px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.06);pointer-events:none;transform:translateX(0);transition:transform .32s var(--ease-out),width .32s var(--ease-out)}
+/* Autoplay clock: a soft green wash fills the capsule left to right */
+.tab-progress{display:none;position:absolute;inset:0;border-radius:inherit;background:rgba(82,178,43,.14);transform-origin:left;transform:scaleX(0)}
+.stories.autoplay .tab-progress{display:block}
+
+/* Data panel */
+.data-panel{--fill:var(--text-1);display:flex;align-items:center;width:100%;border-radius:16px;overflow:hidden}
+.headline-stat{display:flex;flex:1;flex-direction:column;gap:20px;min-width:0;padding:32px 40px}
+.stat-value{display:flex;align-items:baseline;margin:0;color:var(--text-1);font-size:160px;line-height:.73;font-weight:400;letter-spacing:-.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat-unit{font:inherit}
+.stat-description{margin:0;min-height:var(--description-height,0px);color:var(--text-2);font-size:18px;line-height:1.5;font-weight:500;text-wrap:pretty}
+/* Why it matters: links the statistic to the store problem Green Loom addresses */
+.stat-context{margin:0;min-height:var(--context-height,0px);color:var(--text-3);font-size:15px;line-height:1.5;text-wrap:pretty}
+.source{min-height:var(--source-height,0px);margin:0;padding-top:20px;border-top:1px solid var(--hairline);color:var(--text-3);font-size:12px;line-height:1.5}
+.source a{color:inherit;text-underline-offset:3px}
+.matrix{flex:none;margin:0;padding:40px}
+.dot-grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;width:232px;max-width:100%}
+/* Ink dots on hairline rings: the grid reads as part of the numeral, not a second focal point */
+.dot{position:relative;aspect-ratio:1;overflow:hidden;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.dot-fill{position:absolute;inset:0;background:var(--fill);clip-path:inset(0 100% 0 0);transition:background-color .5s var(--ease-out)}
+
+/* ── Sections below the hero ── one frame for all: centred intro, 1040 column */
+.section{padding:128px var(--gutter)}
+.section--tint{background:#fafafa}
+.section__inner{max-width:1040px;margin:0 auto}
+.section__intro{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:760px;margin:0 auto 64px;text-align:center}
+.section h2,.closing h2{margin:0;color:var(--text-1);font-size:40px;line-height:1.12;font-weight:900;letter-spacing:-.022em;text-wrap:balance}
+.lede{margin:0;max-width:36em;color:var(--text-3);font-size:17px;line-height:1.55;text-wrap:balance}
+/* Demo slots hold a one-line fallback until the Stage mounts */
+.demo{width:100%;min-height:120px;color:var(--text-3);font-size:14px;line-height:1.5}
+.demo-note{margin:56px 0 0;color:var(--text-3);font-size:13px;text-align:center}
+/* Feature rows: copy and demo, flipped on alternate rows */
+.feature{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:center}
+.feature+.feature{margin-top:112px}
+.feature--flip{grid-template-columns:7fr 5fr}
+.feature--flip .feature__copy{order:2}
+.feature h3{margin:0 0 14px;color:var(--text-1);font-size:28px;line-height:1.2;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+.feature__copy>p{margin:0 0 24px;color:var(--text-3);font-size:17px;line-height:1.55;text-wrap:pretty}
+.points{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.points li{display:flex;gap:10px;color:var(--text-2);font-size:15px;line-height:1.5}
+.points li::before{content:"";flex:none;width:16px;height:16px;margin-top:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%2336801a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center/16px no-repeat}
+/* Compliance bento: one picture of four tiles, UI next to type */
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tile{display:flex;flex-direction:column;min-width:0;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04),0 0 0 1px var(--hairline)}
+.tile--wide{grid-column:span 2}
+.tile__copy{margin:0;padding:28px 28px 0;color:var(--text-3);font-size:17px;line-height:1.5;text-wrap:pretty}
+.tile__copy strong{color:var(--text-1);font-weight:700}
+.tile .demo{margin-top:auto}
+.tile--stat,.tile--statement{justify-content:space-between;gap:24px;padding:28px}
+.tile--stat .tile__copy,.tile--statement .tile__copy{padding:0}
+.tile--statement .tile__copy{margin-top:8px}
+.stat-figure{margin:0;color:var(--text-1);font-size:72px;line-height:1;font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.stat-figure small{color:var(--green);font-size:.62em;letter-spacing:0}
+.statement-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(82,178,43,.12);color:#2f7414}
+.statement{margin:0;color:var(--text-1);font-size:26px;line-height:1.2;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+/* Status: three steps on one rule, then the schema */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:0;padding:0;list-style:none}
+.step{position:relative;padding-top:28px}
+.step::before{content:"";position:absolute;left:0;right:-32px;top:6px;height:1px;background:var(--hairline)}
+.step:last-child::before{right:0}
+.step::after{content:"";position:absolute;left:0;top:0;width:13px;height:13px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1.5px #b9bdb7}
+.step[data-state=done]::after{background:var(--green);box-shadow:none}
+.step[data-state=now]::after{box-shadow:inset 0 0 0 1.5px var(--green),0 0 0 4px rgba(82,178,43,.14)}
+.step__state{margin:0 0 6px;color:var(--text-3);font-size:13px;font-weight:600}
+.step h3{margin:0 0 8px;color:var(--text-1);font-size:20px;line-height:1.25;font-weight:800;letter-spacing:-.01em}
+.step p{margin:0;color:var(--text-3);font-size:15px;line-height:1.55}
+.schema{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;margin-top:64px;padding:28px;border-radius:24px;background:#fff;box-shadow:0 0 0 1px var(--hairline)}
+.schema h3{margin:0 0 6px;color:var(--text-1);font-size:20px;font-weight:800;letter-spacing:-.01em}
+.schema p{margin:0;max-width:44em;color:var(--text-3);font-size:15px;line-height:1.55}
+/* Closing */
+.closing{padding:128px var(--gutter) 0;text-align:center}
+.closing__inner{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:640px;margin:0 auto}
+.closing .notify-button{margin:16px 0 0}
+.site-footer{display:flex;align-items:center;gap:12px;max-width:1040px;margin:112px auto 0;padding:24px 0 40px;border-top:1px solid var(--hairline);color:var(--text-3);font-size:13px}
+.site-footer img{display:block}
+/* Scroll reveal: one entrance per section, only when JS is on */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s var(--ease-out)}
+.js .reveal--late{transform:translateY(24px);transition-duration:.7s;transition-delay:.12s}
+.js .reveal.in{opacity:1;transform:none}
+
+/* Dialog */
+.notification-dialog{width:min(calc(100% - 32px),440px);padding:32px;color:var(--ink);background:#fff;border:0;border-radius:18px;box-shadow:0 1px 0 #0000000a,0 24px 80px #0f151133}
+.notification-dialog::backdrop{background:#0f151155;backdrop-filter:blur(4px)}
+.dialog-close{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:40px;height:40px;padding:0;color:var(--muted);background:transparent;border:0;border-radius:50%;font-size:22px}
+.notification-dialog h2{margin:4px 36px 10px 0;font-size:26px;line-height:1.15;letter-spacing:-.035em;font-weight:700}
+.dialog-description{margin:0 0 24px;color:var(--muted);font-size:15px;line-height:1.55}
+.signup label{display:block;margin-bottom:8px;font-size:13px;font-weight:600}
+.signup input{display:block;width:100%;height:46px;padding:0 14px;background:#fff;border:1px solid #cfd5ce;border-radius:10px;font-size:16px;transition:border-color .2s,box-shadow .2s}
+.signup input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px var(--green-tint)}
+.signup button{width:100%;height:46px;margin-top:12px;color:#fff;background:var(--ink);border:0;border-radius:999px;font-size:15px;font-weight:600}
+.form-note,.form-status{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.form-status:not(:empty){padding:12px;color:#2f5a1c;background:#f0f6ec;border-radius:8px}
+
+@media(hover:hover) and (pointer:fine){
+  .signup button:hover{background:#26302a}
+  .story-tab[aria-selected=false]:hover{background:rgba(0,0,0,.04)}
+  .dialog-close:hover{color:var(--ink);background:#f3f5f2}
+}
+
+@media(max-width:1023px){
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tile--wide{grid-column:span 2}
+  .headline-stat{padding:32px 24px}
+  .matrix{padding:32px 24px}
+  .dot-grid{width:208px}
+  .stat-value{font-size:112px}
+}
+
+@media(max-width:859px){
+  :root{--gutter:20px}
+  .site-header{padding-top:20px}
+  .prototype-nav{display:none}
+  .notify-button{padding:12px 24px;font-size:15px;line-height:15px}
+  .hero{padding-top:64px}
+  .hero-shell{padding-bottom:72px}
+  .hero-grass{top:290px;width:1400px}
+  .hero-intro{gap:16px;margin-bottom:56px}
+  h1{font-size:clamp(26px,8.4vw,52px)}
+  .stories{padding:12px 16px;border-radius:24px}
+  .story-tabs{padding:6px 0}
+  .story-tab{padding:0 clamp(12px,4.4vw,24px)}
+  .tab-indicator{top:6px}
+  .data-panel{flex-direction:column;align-items:stretch}
+  .headline-stat{padding:24px 8px}
+  .matrix{padding:0 8px 24px}
+  .dot-grid{width:min(100%,232px)}
+  .stat-value{font-size:clamp(88px,27vw,160px)}
+  .stat-description{font-size:17px}
+  .tagline{font-size:16px}
+  .section{padding:80px var(--gutter)}
+  .section__intro{margin-bottom:40px}
+  .section h2,.closing h2{font-size:clamp(28px,7.4vw,40px)}
+  .lede{font-size:16px}
+  .feature,.feature--flip{grid-template-columns:1fr;gap:32px}
+  .feature+.feature{margin-top:80px}
+  .feature--flip .feature__copy{order:0}
+  .feature h3{font-size:24px}
+  .bento{grid-template-columns:1fr}
+  .tile--wide{grid-column:auto}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .step{padding:0 0 0 28px}
+  .step::before{left:6px;right:auto;top:20px;bottom:-34px;width:1px;height:auto}
+  .step:last-child::before{display:none}
+  .schema{grid-template-columns:1fr}
+  .closing{padding-top:80px}
+  .site-footer{margin-top:80px}
+  .notification-dialog{padding:28px 22px}
+}
+
+/* Page-load entrance, seen once per visit: one downward wave. The headline leads, the tagline and the
+   card follow, and the grass fades in underneath. The header is static chrome; the card's contents ride
+   its single entrance, and its data (dots + number) lands from JS as the card settles. */
+@keyframes enter-rise{from{opacity:0;transform:translateY(var(--rise))}}
+@keyframes enter-fade{from{opacity:0}}
+@keyframes grow-ink{from{color:var(--text-1)}}
+h1{--rise:16px;animation:enter-rise .64s var(--ease-out) both}
+h1 em{animation:grow-ink .5s ease-out .42s both}
+.tagline{--rise:10px;animation:enter-rise .56s var(--ease-out) .12s both}
+.hero-grass{animation:enter-fade 1.1s var(--ease-out) .1s both}
+.stories{--rise:24px;animation:enter-rise .72s var(--ease-out) .24s both}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <filter id="glass-refraction" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="9" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+      <feDisplacementMap in="SourceGraphic" in2="soft" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <div class="hero-shell">
+  <img class="hero-grass" src="assets/hero-grass.png" width="2172" height="724" alt="" aria-hidden="true">
+  <header class="site-header">
+    <a class="brand" href="#main" aria-label="Green Loom home"><img src="assets/logo.svg" width="19" height="19" alt=""></a>
+    <nav class="prototype-nav" aria-label="Planned navigation"><a href="#product">Product</a><a href="#how-it-works">Explore</a><span aria-disabled="true">Pricing</span><span aria-disabled="true">Support</span></nav>
+    <a class="notify-button" id="open-notify" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
+  </header>
+
+  <main class="hero" id="main">
+    <div class="hero-intro">
+      <div class="hero-heading">
+        <h1>Where does Georgia <em>grow</em> from here?</h1>
+      </div>
+      <div class="hero-summary">
+        <p class="tagline">We’re building software that makes it easier to open a hemp store, serve customers, and stay on top of the rules.</p>
+      </div>
+    </div>
+
+    <section class="stories" aria-label="Retail business health benchmarks">
+      <div class="story-nav">
+        <div class="story-tabs" role="tablist" aria-label="Choose a business health benchmark">
+          <button class="story-tab" id="tab-survival" type="button" role="tab" aria-selected="true" aria-controls="data-panel" tabindex="0" data-story="0">Survival</button>
+          <button class="story-tab" id="tab-retention" type="button" role="tab" aria-selected="false" aria-controls="data-panel" tabindex="-1" data-story="1">Retention</button>
+          <button class="story-tab" id="tab-profitability" type="button" role="tab" aria-selected="false" aria-controls="data-panel" tabindex="-1" data-story="2">Profitability</button>
+          <span class="tab-indicator" id="tab-indicator" aria-hidden="true"><span class="tab-progress" id="tab-progress"></span></span>
+        </div>
+      </div>
+
+      <div class="data-panel" id="data-panel" role="tabpanel" aria-labelledby="tab-survival" tabindex="0">
+        <div class="headline-stat">
+          <p class="stat-value"><span id="stat-number">70</span><span class="stat-unit">%</span></p>
+          <h2 class="stat-description" id="stat-description">of surveyed U.S. hemp businesses say they will close or move out of the country under the new federal hemp rules.</h2>
+          <p class="stat-context" id="stat-context">Most hemp-THC products are set to lose federal hemp status on December 11, 2026. Stores that stay open will need to rework catalogs, labels and COAs quickly, and Green Loom keeps that work in one place.</p>
+          <p class="source" id="source"></p>
+        </div>
+        <figure class="matrix">
+          <div class="dot-grid" id="dot-grid" role="img" aria-label="70%: Expect to close or relocate. Hemp operators in 35 states responding to Whitney Economics’ survey; the report says more than 70%. Surveyed June–July 2026."></div>
+        </figure>
+      </div>
+
+      <p class="sr-only" id="story-announcement" role="status" aria-live="polite"></p>
+      <noscript><p>Interactive charts require JavaScript. Whitney Economics reports that more than 70% of surveyed U.S. hemp businesses say they will close or move out of the country under the new federal hemp rules.</p></noscript>
+    </section>
+  </main>
+  </div>
+
+  <section class="section" id="how-it-works" aria-labelledby="flow-title">
+    <div class="section__inner">
+      <div class="section__intro reveal">
+        <h2 id="flow-title">From lab result to handoff, one connected record</h2>
+        <p class="lede">Green Loom links every step a hemp sale depends on, so a problem at one step stops the sale before it reaches a customer.</p>
+      </div>
+      <div class="reveal reveal--late">
+        <div class="demo" data-demo="flow" role="img" aria-label="Diagram: a product passes five checks in order. Lab result in date, listing published, stock held, order paid and age-checked, ID checked at handoff.">A product passes five checks: lab result, listing, stock, order and handoff.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="product" aria-label="Product">
+    <div class="section__inner">
+      <article class="feature">
+        <div class="feature__copy reveal">
+          <h3>An expired lab result blocks the listing, not the product</h3>
+          <p>Each product keeps its identity, packages and copy. When its COA expires, the store listing returns to Draft and says why. Link the new report and publish again.</p>
+          <ul class="points">
+            <li>Add with AI reads the label, lab report and receipt before writing copy</li>
+            <li>Expiring COAs are flagged 30 days ahead</li>
+            <li>The price book shows sizes by tier, with profit in every cell</li>
+          </ul>
+        </div>
+        <div class="reveal reveal--late">
+          <div class="demo" data-demo="coa-block" role="img" aria-label="Sample data: a gummies listing returns to Draft when its lab result expires, then publishes again once a new report is linked.">Sample: a listing returns to Draft when its lab result expires.</div>
+        </div>
+      </article>
+
+      <article class="feature feature--flip">
+        <div class="feature__copy reveal">
+          <h3>Every order on one board, from hold to handoff</h3>
+          <p>Orders move through four lanes, On hold, In queue, Packing and Dispatched, and each card shows when its stock hold runs out. Handoff stays locked until payment, items and the ID check are all in place.</p>
+          <ul class="points">
+            <li>Pickup, local delivery and shipping on one board</li>
+            <li>Pause one delivery method without closing the store</li>
+            <li>A private order page with status and chat for each customer</li>
+          </ul>
+        </div>
+        <div class="reveal reveal--late">
+          <div class="demo" data-demo="handoff-gate" role="img" aria-label="Sample data: an order's handoff button stays locked until payment, items and the ID check are confirmed, then the order is picked up.">Sample: handoff unlocks once payment, items and the ID check are done.</div>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="feature__copy reveal">
+          <h3>Turn first visits into regulars</h3>
+          <p>Every order belongs to a customer record. Run a members club with versioned rules and loyalty points that build with every purchase.</p>
+          <ul class="points">
+            <li>1 point per $1 of product</li>
+            <li>Member pricing on birthdays and 4/20</li>
+            <li>Club terms re-confirmed every 90 days</li>
+          </ul>
+        </div>
+        <div class="reveal reveal--late">
+          <div class="demo" data-demo="loyalty" role="img" aria-label="Sample data: a $48 order lands on a club member's record and their points rise from 264 to 312.">Sample: a $48 order adds 48 points to a member's record.</div>
+        </div>
+      </article>
+      <p class="demo-note">Product demos use sample data.</p>
+    </div>
+  </section>
+
+  <section class="section" id="compliance" aria-labelledby="compliance-title">
+    <div class="section__inner">
+      <div class="section__intro reveal">
+        <h2 id="compliance-title">Compliance checks, built into the daily work</h2>
+        <p class="lede">The checks a hemp store runs every day happen where the work happens, not in a separate system.</p>
+      </div>
+      <div class="bento reveal reveal--late">
+        <div class="tile tile--wide">
+          <p class="tile__copy"><strong>Labels that link to the lab report.</strong> One compliance label per line item, with the COA QR code and current warning text.</p>
+          <div class="demo" data-demo="label" role="img" aria-label="Sample data: a compliance label prints with the product, a QR code linking to its lab report, and warning text.">Sample: a compliance label with a COA QR code.</div>
+        </div>
+        <div class="tile tile--stat">
+          <p class="tile__copy"><strong>21+ at checkout and at the counter.</strong> An online age check before the order is placed, and a physical ID check before handoff.</p>
+          <p class="stat-figure">21<small>+</small></p>
+        </div>
+        <div class="tile tile--statement">
+          <span class="statement-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div>
+            <p class="statement">No ID images stored.</p>
+            <p class="tile__copy">Green Loom never keeps ID photos, selfies or document numbers.</p>
+          </div>
+        </div>
+        <div class="tile tile--wide">
+          <p class="tile__copy"><strong>Every stock change has a reason.</strong> Adjustments need a reason and stay in a permanent log.</p>
+          <div class="demo" data-demo="stock-reason" role="img" aria-label="Sample data: a stock adjustment of minus two can only be saved once a reason is chosen, then it is added to the log.">Sample: a stock change saves only with a reason.</div>
+        </div>
+      </div>
+      <p class="demo-note">Demos use sample data.</p>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="status" aria-labelledby="status-title">
+    <div class="section__inner">
+      <div class="section__intro reveal">
+        <h2 id="status-title">Where Green Loom is today</h2>
+        <p class="lede">Green Loom is in development. Here’s what’s done and what comes next.</p>
+      </div>
+      <div class="reveal reveal--late">
+        <ol class="steps">
+          <li class="step" data-state="done">
+            <p class="step__state">Complete</p>
+            <h3>Catalog controls</h3>
+            <p>COA import and automatic publication blocks for missing or expired evidence.</p>
+          </li>
+          <li class="step" data-state="now">
+            <p class="step__state">In development</p>
+            <h3>Orders and storefront</h3>
+            <p>The dispatch board, checkout and the customer order page.</p>
+          </li>
+          <li class="step" data-state="next">
+            <p class="step__state">Next</p>
+            <h3>Operator testing</h3>
+            <p>Working through real store tasks with operators.</p>
+          </li>
+        </ol>
+        <div class="schema">
+          <span class="statement-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></svg></span>
+          <div>
+            <h3>An open product schema</h3>
+            <p>We published the Cannabis Product Schema: a versioned format with a neutral core and a Georgia hemp profile, so product data can move between systems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" aria-labelledby="closing-title">
+    <div class="closing__inner reveal">
+      <h2 id="closing-title">Let’s talk about your store.</h2>
+      <p class="lede">See where Green Loom is headed, and tell us what your store needs.</p>
+      <a class="notify-button" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
+    </div>
+    <footer class="site-footer">
+      <img src="assets/logo.svg" width="19" height="19" alt="">
+      <span>© 2026 Green Loom</span>
+    </footer>
+  </section>
+
+  <dialog class="notification-dialog" id="notification-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+    <button class="dialog-close" type="button" id="close-notify" aria-label="Close notification form">×</button>
+    <h2 id="dialog-title">Get a note when we launch.</h2>
+    <p class="dialog-description" id="dialog-description">Follow what’s next for Green Loom.</p>
+    <form class="signup" id="notification-form">
+      <label for="notification-email">Email address</label>
+      <input id="notification-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required aria-describedby="form-note" autofocus>
+      <button type="submit">Get notified</button>
+      <p class="form-note" id="form-note">This prototype does not capture email addresses yet.</p>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <script>
+    'use strict';
+    const stories = [
+      {
+        id:'survival', category:'Survival', label:'Hemp business survival', percentage:70, displayValue:'70',
+        sentence:'of surveyed U.S. hemp businesses say they will close or move out of the country under the new federal hemp rules.',
+        context:'Most hemp-THC products are set to lose federal hemp status on December 11, 2026. Stores that stay open will need to rework catalogs, labels and COAs quickly, and Green Loom keeps that work in one place.',
+        filledLabel:'Expect to close or relocate',
+        scope:'Hemp operators in 35 states responding to Whitney Economics’ survey; the report says more than 70%.', period:'Surveyed June–July 2026.',
+        citation:{label:'Whitney Economics · September 2026',url:'https://whitneyeconomics.com/press-detail/whitney-economics-releases-u.s.-hemp-cannabinoid-report-for-2026'}
+      },
+      {
+        id:'retention', category:'Retention', label:'Customer retention', percentage:67.1, displayValue:'67',
+        sentence:'of first-time cannabis shoppers did not return to the same store within six months.',
+        context:'A repeat customer spends about $316 over six months, against $56 for a one-time shopper. Green Loom ties every order to a customer record, club and loyalty.',
+        filledLabel:'Did not return',
+        scope:'Cannabis shoppers across 1,060 stores in nine U.S. states.', period:'180-day observation window; published May 2026.',
+        citation:{label:'Headset · May 2026',url:'https://www.headset.io/industry-reports/the-retention-gap-why-two-in-three-cannabis-customers-never-return'}
+      },
+      {
+        id:'profitability', category:'Profitability', label:'Operator profitability', percentage:27.27, displayValue:'27',
+        sentence:'of surveyed U.S. cannabis operators reported profitability.',
+        context:'Another 41% only break even. On margins that thin, manual stock counts and dropped orders cost real money, so Green Loom keeps catalog, inventory and orders in one system.',
+        filledLabel:'Profitable',
+        scope:'U.S. cannabis operators responding to Whitney Economics’ survey.', period:'2024 Business Conditions and Sentiment Survey.',
+        citation:{label:'Whitney Economics · July 2024',url:'https://www.prnewswire.com/news-releases/whitney-economics-cannabis-business-conditions-survey-results-indicate-only-27-3-of-us-cannabis-operators-are-profitable-302204870.html'}
+      }
+    ];
+
+    // Each benchmark is a separate dataset. Swap the complete story while hidden.
+    // enterData: when the card's entrance is ~60% done, so the data lands as the card settles.
+    const TIMING = {rotate:9000, exit:160, enter:300, morph:700, enterData:680};
+    const EASE_OUT = 'cubic-bezier(.23,1,.32,1)';
+
+    const $ = id => document.getElementById(id);
+    const panel = $('data-panel');
+    const grid = $('dot-grid');
+    const numberEl = $('stat-number');
+    const descriptionEl = $('stat-description');
+    const tabList = document.querySelector('.story-tabs');
+    const tabs = [...document.querySelectorAll('.story-tab')];
+    const indicator = $('tab-indicator');
+    const dialog = $('notification-dialog');
+    const opener = $('open-notify');
+    const stories$ = document.querySelector('.stories');
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const animations = new Set();
+    let active = 0;
+    let inViewport = false;
+    let manualPause = false;
+    let hovering = false;
+    let transitioning = false;
+    let revision = 0;
+    let rotationTimer = null;
+    let rotationDeadline = 0;
+    let rotationRemaining = TIMING.rotate;
+
+    // Dots fill in reading order: dot i covers the percentage point (i, i+1].
+    const dots = Array.from({length:100}, () => {
+      const element = document.createElement('span');
+      element.className = 'dot';
+      element.setAttribute('aria-hidden','true');
+      const fill = document.createElement('span');
+      fill.className = 'dot-fill';
+      element.append(fill);
+      grid.append(element);
+      return {fill};
+    });
+
+    function paint(value) {
+      dots.forEach((dot, i) => {
+        const fraction = Math.min(1, Math.max(0, value - i));
+        // This is a static mask, updated only while the entire story is hidden.
+        dot.fill.style.clipPath = 'inset(0 ' + ((1 - fraction) * 100) + '% 0 0)';
+      });
+    }
+
+    function play(element, frames, options) {
+      const animation = element.animate(frames, {fill:'both', easing:EASE_OUT, ...options});
+      animations.add(animation);
+      // Hold the final frame until the whole phase completes. Early cancellation
+      // would reveal old content while the other elements are still fading out.
+      return animation.finished.then(() => true, () => false);
+    }
+    function cancelAnimations() {
+      animations.forEach(animation => animation.cancel());
+      animations.clear();
+    }
+    const textParts = [descriptionEl, $('stat-context'), $('source')];
+
+    function placeIndicator(index, animate = true) {
+      if (!animate || motion.matches) indicator.style.transition = 'none';
+      indicator.style.transform = 'translateX(' + tabs[index].offsetLeft + 'px)';
+      indicator.style.width = tabs[index].offsetWidth + 'px';
+      if (!animate || motion.matches) { void indicator.offsetWidth; indicator.style.transition = ''; }
+    }
+
+    function selectTab(index, animate = true) {
+      placeIndicator(index, animate);
+      tabs.forEach((tab, i) => {
+        tab.setAttribute('aria-selected', String(i === index));
+        tab.tabIndex = i === index ? 0 : -1;
+      });
+    }
+
+    function renderCopy(index) {
+      const item = stories[index];
+      panel.setAttribute('aria-labelledby', tabs[index].id);
+      descriptionEl.textContent = item.sentence;
+      $('stat-context').textContent = item.context;
+      const link = document.createElement('a');
+      link.href = item.citation.url;
+      link.textContent = item.citation.label;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      $('source').replaceChildren(document.createTextNode('U.S. benchmark, not Georgia-specific. '), link);
+      grid.setAttribute('aria-label', item.displayValue + '%: ' + item.filledLabel + '. ' + item.scope + ' ' + item.period);
+    }
+
+    function finishNumber(index) {
+      paint(stories[index].percentage);
+      numberEl.textContent = stories[index].displayValue;
+    }
+
+    // Reading and deliberate tab selection take precedence over automatic rotation.
+    function focusBlocks() {
+      const el = document.activeElement;
+      return el && el !== document.body && !!el.closest('button,a,input,[tabindex="0"]');
+    }
+    const blocked = () => transitioning || hovering || !inViewport || document.hidden || dialog.open || focusBlocks();
+
+    function cancelRotation(reset = false) {
+      if (rotationTimer !== null) {
+        clearTimeout(rotationTimer);
+        rotationRemaining = Math.max(0, rotationDeadline - performance.now());
+        rotationTimer = null;
+      }
+      if (reset) rotationRemaining = TIMING.rotate;
+      showProgress(false);
+    }
+    function syncRotation() {
+      if (manualPause || motion.matches) { cancelRotation(true); return; }
+      if (blocked()) { cancelRotation(); return; }
+      if (rotationTimer !== null) return;
+      rotationDeadline = performance.now() + rotationRemaining;
+      rotationTimer = setTimeout(() => {
+        rotationTimer = null;
+        rotationRemaining = TIMING.rotate;
+        showStory((active + 1) % stories.length);
+      }, rotationRemaining);
+      showProgress(true);
+    }
+
+    // The active tab's underline doubles as the rotation clock: it fills while
+    // the timer runs, freezes while paused, and turns solid once a visitor picks a tab.
+    const progress = $('tab-progress');
+    function showProgress(running) {
+      stories$.classList.toggle('autoplay', !manualPause && !motion.matches);
+      progress.style.transition = 'none';
+      progress.style.transform = 'scaleX(' + (1 - rotationRemaining / TIMING.rotate) + ')';
+      if (!running) return;
+      void progress.offsetWidth;
+      progress.style.transition = 'transform ' + rotationRemaining + 'ms linear';
+      progress.style.transform = 'scaleX(1)';
+    }
+
+    // First paint: marks sweep in reading order and settle on the exact painted value.
+    // fill:'both' (in play) holds them empty through the offset.
+    function animateFills(index, offset = 0) {
+      return dots.filter((dot, i) => stories[index].percentage - i > 0).map((dot, i) =>
+        play(dot.fill, [{clipPath:'inset(0 100% 0 0)'}, {clipPath:dot.fill.style.clipPath}], {duration:220, delay:offset + i * 7}));
+    }
+
+    // The number counts from whatever is on screen to the new value, then lands on the display string.
+    function tweenNumber(from, to, duration, request) {
+      return new Promise(resolve => {
+        const start = performance.now();
+        const step = now => {
+          if (request !== revision) return resolve(false);
+          const t = Math.min(1, (now - start) / duration);
+          numberEl.textContent = Math.round(from + (to - from) * (1 - Math.pow(1 - t, 3)));
+          if (t < 1) requestAnimationFrame(step); else resolve(true);
+        };
+        requestAnimationFrame(step);
+      });
+    }
+
+    function renderStory(index) {
+      renderCopy(index);
+      finishNumber(index);
+    }
+
+    async function showStory(index, {announce = false, immediate = false} = {}) {
+      if (index === active && !transitioning) return;
+      // Capture before cancelling so a rapid selection morphs from the visible state.
+      const fromNumber = parseFloat(numberEl.textContent);
+      const fromClips = dots.map(dot => getComputedStyle(dot.fill).clipPath);
+      const fromOpacity = textParts.map(el => getComputedStyle(el).opacity);
+      const request = ++revision;
+      active = index;
+      cancelAnimations();
+      cancelRotation(true);
+      transitioning = true;
+      panel.setAttribute('aria-busy', 'true');
+      selectTab(index, !immediate);
+      syncRotation();
+
+      if (immediate || motion.matches || document.hidden || !inViewport) {
+        renderStory(index);
+      } else {
+        // Marks and number morph continuously; only the words crossfade.
+        paint(stories[index].percentage);
+        const morph = dots.map((dot, i) => play(dot.fill,
+          [{clipPath:fromClips[i]}, {clipPath:dot.fill.style.clipPath}], {duration:TIMING.morph, delay:i * 3}));
+        const counting = tweenNumber(fromNumber, stories[index].percentage, TIMING.morph + 300, request);
+        await Promise.all(textParts.map((el, i) => play(el,
+          [{opacity:fromOpacity[i]}, {opacity:0}], {duration:TIMING.exit})));
+        if (request !== revision) return;
+        renderCopy(index);
+        await Promise.all([...textParts.map(el => play(el,
+          [{opacity:0, transform:'translateY(4px)'}, {opacity:1, transform:'none'}],
+          {duration:TIMING.enter})), ...morph, counting]);
+        if (request !== revision) return;
+        finishNumber(index);
+        cancelAnimations();
+      }
+      transitioning = false;
+      panel.setAttribute('aria-busy', 'false');
+      if (announce) $('story-announcement').textContent = stories[index].label + ': ' + stories[index].displayValue + '% ' + stories[index].sentence;
+      syncRotation();
+    }
+
+    function settle() {
+      revision++;
+      cancelAnimations();
+      transitioning = false;
+      panel.setAttribute('aria-busy', 'false');
+      selectTab(active, false);
+      renderStory(active);
+      syncRotation();
+    }
+
+    // Reserve only the space needed by the longest story at the current width.
+    function measureCopy() {
+      for (const [element, texts, property] of [
+        [descriptionEl, stories.map(item => item.sentence), '--description-height'],
+        [$('stat-context'), stories.map(item => item.context), '--context-height'],
+        [$('source'), stories.map(item => 'U.S. benchmark, not Georgia-specific. ' + item.citation.label), '--source-height']
+      ]) {
+        const probe = element.cloneNode(false);
+        probe.removeAttribute('id');
+        probe.setAttribute('aria-hidden', 'true');
+        Object.assign(probe.style, {position:'absolute', visibility:'hidden', pointerEvents:'none',
+          width:element.getBoundingClientRect().width + 'px', maxWidth:'none', minHeight:'0', height:'auto', margin:'0'});
+        element.parentElement.append(probe);
+        const height = Math.max(...texts.map(text => {
+          probe.textContent = text;
+          return probe.getBoundingClientRect().height;
+        }));
+        probe.remove();
+        panel.style.setProperty(property, Math.ceil(height) + 'px');
+      }
+    }
+
+    async function enterHero() {
+      selectTab(0, false);
+      renderStory(0);
+      measureCopy();
+      if (motion.matches || document.hidden) { syncRotation(); return; }
+      const request = ++revision;
+      transitioning = true;
+      syncRotation();
+      // Headline, tagline and card enter in CSS. The data lands together as the card settles:
+      // dots sweep in reading order while the number counts up from zero.
+      numberEl.textContent = '0';
+      const fills = animateFills(0, TIMING.enterData);
+      await new Promise(resolve => setTimeout(resolve, TIMING.enterData));
+      if (request !== revision) return;
+      await Promise.all([...fills, tweenNumber(0, stories[0].percentage, 700, request)]);
+      if (request !== revision) return;
+      finishNumber(0);
+      cancelAnimations();
+      transitioning = false;
+      syncRotation();
+    }
+
+    // Interaction
+    tabs.forEach((tab, index) => tab.addEventListener('click', event => {
+      manualPause = true;
+      showStory(index, {announce:true});
+      syncRotation();
+    }));
+    tabList.addEventListener('keydown', event => {
+      if (!['ArrowRight','ArrowLeft','Home','End'].includes(event.key)) return;
+      event.preventDefault();
+      let next = active;
+      if (event.key === 'ArrowRight') next = (active + 1) % stories.length;
+      if (event.key === 'ArrowLeft') next = (active + stories.length - 1) % stories.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = stories.length - 1;
+      manualPause = true;
+      tabs[next].focus();
+      showStory(next, {announce:true});
+    });
+    stories$.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { hovering = true; syncRotation(); } });
+    stories$.addEventListener('pointerleave', () => { hovering = false; syncRotation(); });
+    document.addEventListener('focusin', syncRotation);
+    document.addEventListener('focusout', () => queueMicrotask(syncRotation));
+    document.addEventListener('visibilitychange', () => document.hidden ? settle() : syncRotation());
+    motion.addEventListener('change', settle);
+    let measuredWidth = 0;
+    new ResizeObserver(entries => {
+      const width = entries[0].contentRect.width;
+      if (width !== measuredWidth) { measuredWidth = width; measureCopy(); }
+    }).observe(panel);
+    new ResizeObserver(() => placeIndicator(active, false)).observe(tabList);
+    document.fonts?.ready.then(() => { measureCopy(); placeIndicator(active, false); });
+    new IntersectionObserver(entries => {
+      inViewport = entries[0].isIntersecting;
+      if (!inViewport && transitioning) settle(); else syncRotation();
+    }).observe(stories$);
+
+    // "Set up a call" links to the booking page; the notification dialog below is kept but not opened.
+    $('close-notify').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const controls = [...dialog.querySelectorAll('button:not([disabled]),input:not([disabled])')];
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    dialog.addEventListener('close', () => { opener.focus(); syncRotation(); });
+    $('notification-form').addEventListener('submit', event => {
+      event.preventDefault();
+      $('form-status').textContent = 'This prototype does not capture email addresses yet. Your address has not been sent or stored.';
+    });
+
+    enterHero();
+
+    // Sections below the hero reveal once as they scroll in.
+    const revealer = new IntersectionObserver(entries => {
+      for (const entry of entries) if (entry.isIntersecting) { entry.target.classList.add('in'); revealer.unobserve(entry.target); }
+    }, {rootMargin: '0px 0px -12% 0px'}); // any part in view, a little above the fold line: tall blocks reveal too
+    document.querySelectorAll('.reveal').forEach(el => revealer.observe(el));
+  </script>
+  <script type="module" src="assets/demos/demos.js"></script>
+</body>
+</html>
