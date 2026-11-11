@@ -4,8 +4,6 @@
   & .ss-stage {
     --gutter: 36px;
     overflow: hidden;
-    border-radius: 24px;
-    background: var(--ss-well);
   }
 
   /* Corner bleed: inset top and left, off the right and bottom. The list keeps
