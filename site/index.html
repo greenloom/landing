@@ -17,14 +17,8 @@
 
 :root{
   color-scheme:light;
-  --ink:#0f1511;
-  --ink-2:#2b332d;
-  --muted:#5e6862;
-  --faint:#5e6862;
-  --line:#e4e8e3;
   --green:#52b22b;
   --green-deep:#2f7414;
-  --green-tint:#4a9e2429;
   --text-1:#141414;
   --text-2:#3d3d3d;
   --text-3:#6b6b6b;
@@ -32,18 +26,18 @@
   --gutter:32px;
   --ease-out:cubic-bezier(.23,1,.32,1);
   font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
-  color:var(--ink);
+  color:var(--text-1);
   background:#fff;
 }
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;position:relative;isolation:isolate;background:#fff;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-button,input{font:inherit;color:inherit}
+button{font:inherit;color:inherit}
 button{cursor:pointer}
-button,a,input{-webkit-tap-highlight-color:transparent}
+button,a{-webkit-tap-highlight-color:transparent}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--green-deep);outline-offset:4px;border-radius:4px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.skip-link{position:absolute;top:-80px;left:24px;z-index:5;padding:10px 14px;color:#fff;background:var(--ink);border-radius:8px;font-size:14px;text-decoration:none}
+.skip-link{position:absolute;top:-80px;left:24px;z-index:5;padding:10px 14px;color:#fff;background:var(--text-1);border-radius:8px;font-size:14px;text-decoration:none}
 .skip-link:focus{top:16px}
 
 /* Header (Figma 861:5729) */
@@ -70,18 +64,19 @@ h1 em{color:var(--green);font-style:normal}
 /* Story card */
 /* Liquid glass, light variant (webtricks.dev/blog/liquid-glass-css):
    tint → blur + saturation → asymmetric rim → diagonal sheen → (Chromium) refraction */
-.stories{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;gap:2px;padding:20px 32px 12px;border-radius:32px;
+.stories{display:flex;flex-direction:column;align-items:center;gap:2px;padding:20px 32px 12px}
+.glass{position:relative;isolation:isolate;border-radius:32px;
   background:rgba(255,255,255,.66);
   -webkit-backdrop-filter:blur(14px) saturate(125%);backdrop-filter:blur(14px) saturate(125%);
   border:1px solid rgba(255,255,255,.65);
   box-shadow:0 32px 48px rgba(0,0,0,.08),inset 0 1px 1px rgba(255,255,255,.9),inset 0 -1px 1px rgba(0,0,0,.06)}
-.stories::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.15) 30%,transparent 60%)}
+.glass::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.15) 30%,transparent 60%)}
 /* Refraction: the grass visibly bends through the pane. Safari drops the whole value if url() is present, hence the guard. */
 @supports (backdrop-filter:url('#glass-refraction')){
-  .stories{backdrop-filter:blur(10px) saturate(125%) url('#glass-refraction')}
+  .glass{backdrop-filter:blur(10px) saturate(125%) url('#glass-refraction')}
 }
 @media(prefers-reduced-transparency:reduce){
-  .stories{background:rgba(250,250,250,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .glass{background:rgba(250,250,250,.97);-webkit-backdrop-filter:none;backdrop-filter:none}
 }
 .story-nav{display:flex;justify-content:center}
 .story-tabs{position:relative;display:inline-flex;padding:8px 16px}
@@ -128,7 +123,7 @@ h1 em{color:var(--green);font-style:normal}
 .feature__copy>p{margin:0 0 24px;color:var(--text-3);font-size:17px;line-height:1.55;text-wrap:pretty}
 .points{display:grid;gap:10px;margin:0;padding:0;list-style:none}
 .points li{display:flex;gap:10px;color:var(--text-2);font-size:15px;line-height:1.5}
-.points li::before{content:"";flex:none;width:16px;height:16px;margin-top:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%2336801a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center/16px no-repeat}
+.points li::before{content:"";flex:none;width:16px;height:16px;margin-top:3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%232f7414' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center/16px no-repeat}
 /* Compliance bento: one picture of four tiles, UI next to type */
 .bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .tile{display:flex;flex-direction:column;min-width:0;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04),0 0 0 1px var(--hairline)}
@@ -136,13 +131,12 @@ h1 em{color:var(--green);font-style:normal}
 .tile__copy{margin:0;padding:28px 28px 0;color:var(--text-3);font-size:17px;line-height:1.5;text-wrap:pretty}
 .tile__copy strong{color:var(--text-1);font-weight:700}
 .tile .demo{margin-top:auto}
-.tile--stat,.tile--statement{justify-content:space-between;gap:24px;padding:28px}
-.tile--stat .tile__copy,.tile--statement .tile__copy{padding:0}
-.tile--statement .tile__copy{margin-top:8px}
-.stat-figure{margin:0;color:var(--text-1);font-size:72px;line-height:1;font-weight:800;letter-spacing:-.04em;white-space:nowrap}
+.tile--stat{justify-content:space-between;gap:24px;padding:28px}
+.tile--stat .tile__copy{padding:0}
+.tile--stat .statement-mark{width:72px;height:72px;border-radius:24px}
+.stat-figure{margin:0;color:var(--text-1);font-size:72px;line-height:1;font-weight:400;letter-spacing:-.04em;white-space:nowrap}
 .stat-figure small{color:var(--green);font-size:.62em;letter-spacing:0}
-.statement-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(82,178,43,.12);color:#2f7414}
-.statement{margin:0;color:var(--text-1);font-size:26px;line-height:1.2;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
+.statement-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:rgba(82,178,43,.12);color:var(--green-deep)}
 /* Status: three steps on one rule, then the schema */
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin:0;padding:0;list-style:none}
 .step{position:relative;padding-top:28px}
@@ -158,8 +152,10 @@ h1 em{color:var(--green);font-style:normal}
 .schema h3{margin:0 0 6px;color:var(--text-1);font-size:20px;font-weight:800;letter-spacing:-.01em}
 .schema p{margin:0;max-width:44em;color:var(--text-3);font-size:15px;line-height:1.55}
 /* Closing */
-.closing{padding:128px var(--gutter) 0;text-align:center}
-.closing__inner{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:640px;margin:0 auto}
+/* Closing: the hero's grass (mirrored) and glass return, so the page ends as it began */
+.closing{position:relative;overflow:hidden;padding:128px var(--gutter) 0;text-align:center}
+.closing::before{content:"";position:absolute;top:267px;left:50%;width:max(1400px,110vw);aspect-ratio:3;transform:translate(-50%,-50%) scaleX(-1);background:url('assets/hero-grass.png') center/contain no-repeat;mix-blend-mode:multiply;pointer-events:none}
+.closing__inner{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:640px;margin:0 auto;padding:56px 40px}
 .closing .notify-button{margin:16px 0 0}
 .site-footer{display:flex;align-items:center;gap:12px;max-width:1040px;margin:112px auto 0;padding:24px 0 40px;border-top:1px solid var(--hairline);color:var(--text-3);font-size:13px}
 .site-footer img{display:block}
@@ -168,23 +164,8 @@ h1 em{color:var(--green);font-style:normal}
 .js .reveal--late{transform:translateY(24px);transition-duration:.7s;transition-delay:.12s}
 .js .reveal.in{opacity:1;transform:none}
 
-/* Dialog */
-.notification-dialog{width:min(calc(100% - 32px),440px);padding:32px;color:var(--ink);background:#fff;border:0;border-radius:18px;box-shadow:0 1px 0 #0000000a,0 24px 80px #0f151133}
-.notification-dialog::backdrop{background:#0f151155;backdrop-filter:blur(4px)}
-.dialog-close{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:40px;height:40px;padding:0;color:var(--muted);background:transparent;border:0;border-radius:50%;font-size:22px}
-.notification-dialog h2{margin:4px 36px 10px 0;font-size:26px;line-height:1.15;letter-spacing:-.035em;font-weight:700}
-.dialog-description{margin:0 0 24px;color:var(--muted);font-size:15px;line-height:1.55}
-.signup label{display:block;margin-bottom:8px;font-size:13px;font-weight:600}
-.signup input{display:block;width:100%;height:46px;padding:0 14px;background:#fff;border:1px solid #cfd5ce;border-radius:10px;font-size:16px;transition:border-color .2s,box-shadow .2s}
-.signup input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px var(--green-tint)}
-.signup button{width:100%;height:46px;margin-top:12px;color:#fff;background:var(--ink);border:0;border-radius:999px;font-size:15px;font-weight:600}
-.form-note,.form-status{margin:12px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
-.form-status:not(:empty){padding:12px;color:#2f5a1c;background:#f0f6ec;border-radius:8px}
-
 @media(hover:hover) and (pointer:fine){
-  .signup button:hover{background:#26302a}
   .story-tab[aria-selected=false]:hover{background:rgba(0,0,0,.04)}
-  .dialog-close:hover{color:var(--ink);background:#f3f5f2}
 }
 
 @media(max-width:1023px){
@@ -206,7 +187,8 @@ h1 em{color:var(--green);font-style:normal}
   .hero-grass{top:290px;width:1400px}
   .hero-intro{gap:16px;margin-bottom:56px}
   h1{font-size:clamp(26px,8.4vw,52px)}
-  .stories{padding:12px 16px;border-radius:24px}
+  .stories{padding:12px 16px}
+  .glass{border-radius:24px}
   .story-tabs{padding:6px 0}
   .story-tab{padding:0 clamp(12px,4.4vw,24px)}
   .tab-indicator{top:6px}
@@ -233,8 +215,9 @@ h1 em{color:var(--green);font-style:normal}
   .step:last-child::before{display:none}
   .schema{grid-template-columns:1fr}
   .closing{padding-top:80px}
+  .closing::before{top:221px;width:1000px}
+  .closing__inner{padding:40px 24px}
   .site-footer{margin-top:80px}
-  .notification-dialog{padding:28px 22px}
 }
 
 /* Page-load entrance, seen once per visit: one downward wave. The headline leads, the tagline and the
@@ -267,7 +250,7 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
   <header class="site-header">
     <a class="brand" href="#main" aria-label="Green Loom home"><img src="assets/logo.svg" width="19" height="19" alt=""></a>
     <nav class="prototype-nav" aria-label="Planned navigation"><a href="#product">Product</a><a href="#how-it-works">Explore</a><span aria-disabled="true">Pricing</span><span aria-disabled="true">Support</span></nav>
-    <a class="notify-button" id="open-notify" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
+    <a class="notify-button" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
   </header>
 
   <main class="hero" id="main">
@@ -280,7 +263,7 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
       </div>
     </div>
 
-    <section class="stories" aria-label="Retail business health benchmarks">
+    <section class="stories glass" aria-label="Retail business health benchmarks">
       <div class="story-nav">
         <div class="story-tabs" role="tablist" aria-label="Choose a business health benchmark">
           <button class="story-tab" id="tab-survival" type="button" role="tab" aria-selected="true" aria-controls="data-panel" tabindex="0" data-story="0">Survival</button>
@@ -320,8 +303,12 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
     </div>
   </section>
 
-  <section class="section section--tint" id="product" aria-label="Product">
+  <section class="section section--tint" id="product" aria-labelledby="product-title">
     <div class="section__inner">
+      <div class="section__intro reveal">
+        <h2 id="product-title">Catalog, orders and customers in one place</h2>
+        <p class="lede">The three places a store’s day happens: the product catalog, the order board and the customer record.</p>
+      </div>
       <article class="feature">
         <div class="feature__copy reveal">
           <h3>An expired lab result blocks the listing, not the product</h3>
@@ -366,7 +353,7 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
           <div class="demo" data-demo="loyalty" role="img" aria-label="Sample data: a $48 order lands on a club member's record and their points rise from 264 to 312.">Sample: a $48 order adds 48 points to a member's record.</div>
         </div>
       </article>
-      <p class="demo-note">Product demos use sample data.</p>
+      <p class="demo-note">Demos use sample data.</p>
     </div>
   </section>
 
@@ -385,12 +372,9 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
           <p class="tile__copy"><strong>21+ at checkout and at the counter.</strong> An online age check before the order is placed, and a physical ID check before handoff.</p>
           <p class="stat-figure">21<small>+</small></p>
         </div>
-        <div class="tile tile--statement">
-          <span class="statement-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
-          <div>
-            <p class="statement">No ID images stored.</p>
-            <p class="tile__copy">Green Loom never keeps ID photos, selfies or document numbers.</p>
-          </div>
+        <div class="tile tile--stat">
+          <p class="tile__copy"><strong>No ID images stored.</strong> Green Loom never keeps ID photos, selfies or document numbers.</p>
+          <span class="statement-mark" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
         </div>
         <div class="tile tile--wide">
           <p class="tile__copy"><strong>Every stock change has a reason.</strong> Adjustments need a reason and stay in a permanent log.</p>
@@ -437,7 +421,7 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
   </section>
 
   <section class="closing" aria-labelledby="closing-title">
-    <div class="closing__inner reveal">
+    <div class="closing__inner glass reveal">
       <h2 id="closing-title">Let’s talk about your store.</h2>
       <p class="lede">See where Green Loom is headed, and tell us what your store needs.</p>
       <a class="notify-button" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
@@ -447,19 +431,6 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
       <span>© 2026 Green Loom</span>
     </footer>
   </section>
-
-  <dialog class="notification-dialog" id="notification-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
-    <button class="dialog-close" type="button" id="close-notify" aria-label="Close notification form">×</button>
-    <h2 id="dialog-title">Get a note when we launch.</h2>
-    <p class="dialog-description" id="dialog-description">Follow what’s next for Green Loom.</p>
-    <form class="signup" id="notification-form">
-      <label for="notification-email">Email address</label>
-      <input id="notification-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required aria-describedby="form-note" autofocus>
-      <button type="submit">Get notified</button>
-      <p class="form-note" id="form-note">This prototype does not capture email addresses yet.</p>
-      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-    </form>
-  </dialog>
 
   <script>
     'use strict';
@@ -503,8 +474,6 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
     const tabList = document.querySelector('.story-tabs');
     const tabs = [...document.querySelectorAll('.story-tab')];
     const indicator = $('tab-indicator');
-    const dialog = $('notification-dialog');
-    const opener = $('open-notify');
     const stories$ = document.querySelector('.stories');
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -591,7 +560,7 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
       const el = document.activeElement;
       return el && el !== document.body && !!el.closest('button,a,input,[tabindex="0"]');
     }
-    const blocked = () => transitioning || hovering || !inViewport || document.hidden || dialog.open || focusBlocks();
+    const blocked = () => transitioning || hovering || !inViewport || document.hidden || focusBlocks();
 
     function cancelRotation(reset = false) {
       if (rotationTimer !== null) {
@@ -784,21 +753,7 @@ h1 em{animation:grow-ink .5s ease-out .42s both}
       if (!inViewport && transitioning) settle(); else syncRotation();
     }).observe(stories$);
 
-    // "Set up a call" links to the booking page; the notification dialog below is kept but not opened.
-    $('close-notify').addEventListener('click', () => dialog.close());
-    dialog.addEventListener('keydown', event => {
-      if (event.key !== 'Tab') return;
-      const controls = [...dialog.querySelectorAll('button:not([disabled]),input:not([disabled])')];
-      const first = controls[0];
-      const last = controls[controls.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-    });
-    dialog.addEventListener('close', () => { opener.focus(); syncRotation(); });
-    $('notification-form').addEventListener('submit', event => {
-      event.preventDefault();
-      $('form-status').textContent = 'This prototype does not capture email addresses yet. Your address has not been sent or stored.';
-    });
+
 
     enterHero();
 
