@@ -1,0 +1,100 @@
+/* Orders demo. Stacked cards: two components at one width and one left edge,
+   12px apart, centred; the lower one runs off the bottom. */
+.gl-handoff {
+  & .ss-stage {
+    --gutter: 36px;
+    overflow: hidden;
+  }
+
+  .ho-tick { display: grid; place-items: center; }
+
+  /* One column, one left edge, 12px between: the lower card runs off the bottom */
+  .ho-stack {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    right: var(--gutter);
+    display: grid;
+    gap: 12px;
+  }
+
+  .ho-card,
+  .ho-items { box-shadow: var(--ss-shadow-ground); }
+
+  .ho-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .ho-title {
+    color: var(--ss-text-strong);
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ho-status { font-weight: 500; }
+
+  .ho-checks {
+    display: grid;
+    padding: 4px 0 16px;
+  }
+
+  .ho-check {
+    display: grid;
+    grid-template-columns: 16px auto 1fr;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .ho-check__name {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .ho-check__state {
+    justify-self: end;
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ho-button[data-locked] { color: var(--ss-text-faint); }
+
+  .ho-items__head {
+    padding-bottom: 8px;
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .ho-item {
+    height: 52px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .ho-item__name {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .ho-item__qty {
+    color: var(--ss-text);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  & .ss-stage[data-layout='compact'] {
+    --gutter: 16px;
+  }
+
+}

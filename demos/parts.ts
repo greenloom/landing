@@ -1,0 +1,20 @@
+// The kit parts these demos use, imported from their own files. The kit's
+// index re-exports every part, and each part imports its CSS, so importing the
+// index would pull the whole kit (and all its styles) into the page's bundle.
+export { Stage } from './kit/stage'
+export type { Act } from './kit/act'
+export type { Rect } from './kit/measure'
+export { Window, Bar, Text } from './kit/window'
+export { Avatar } from './kit/parts/Avatar'
+export { Card } from './kit/parts/Card'
+export { Check } from './kit/parts/Check'
+export { Row } from './kit/parts/Row'
+export { Badge } from './kit/controls/Badge'
+export { Button } from './kit/controls/Button'
+export { Field } from './kit/controls/Field'
+export { Segmented } from './kit/controls/Segmented'
+export { Collapse } from './kit/motion/Collapse'
+export { Connector } from './kit/motion/Connector'
+export { Count } from './kit/motion/Count'
+export { Roll } from './kit/motion/Roll'
+export { States } from './kit/motion/States'
