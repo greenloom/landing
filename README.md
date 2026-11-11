@@ -2,10 +2,17 @@
 
 The public site at https://www.greenloom.com.
 
-`site/` holds the whole site as static files, and GitHub Pages publishes it on
-every push to `main` (`.github/workflows/deploy.yml`, no build step).
+- `site/` is the page (`index.html`) and its static assets.
+- `demos/` holds the feature demos: small StageShow scenes (React) built into
+  `site/assets/demos/`. The StageShow kit is vendored in `demos/kit/` under its
+  MIT licence. `demos/REHEARSAL.md` records how each demo was checked.
 
-The page and its feature demos are developed in `greenloom/retail-admin`
-under `landingpage/`. The demos are built there with `pnpm landing:demos`;
-copy `landingpage/index.html` and the assets it references into `site/` to
-update this repo.
+```bash
+npm install
+npm run build      # build the demos into site/assets/demos
+npm run serve      # http://localhost:8765
+npm run typecheck
+```
+
+Pushing to `main` deploys: the Pages workflow installs, builds the demos and
+publishes `site/` (`.github/workflows/deploy.yml`).

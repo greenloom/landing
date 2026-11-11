@@ -1,8 +1,7 @@
 name: Deploy to GitHub Pages
 
-# The site is plain static files in site/; there is no build step.
-# They are built in greenloom/retail-admin (landingpage/, `pnpm landing:demos`)
-# and copied here.
+# site/ is the page and its static assets; the feature demos are built from
+# demos/ into site/assets/demos before publishing.
 
 on:
   push:
@@ -27,6 +26,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build demos
+        run: npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,0 +1,119 @@
+/* One component on the tile's ground: inset on the copy's 28px gutter at the
+   left and right, running off the bottom where the log's older rows are. */
+.gl-stock {
+  & .ss-stage {
+    --gutter: 28px;
+    overflow: hidden;
+  }
+
+  /* Straight on the tile, no card of its own: the tile is the surface */
+  .sr-card {
+    position: absolute;
+    top: 20px;
+    left: var(--gutter);
+    right: var(--gutter);
+  }
+
+  .sr-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .sr-title {
+    color: var(--ss-text-strong);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .sr-onhand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .sr-onhand__n {
+    color: var(--ss-text-strong);
+    font-size: 18px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The form on one line: labels on one row, controls on the next, so both
+     labels share a baseline and the field's top meets the segmented control's */
+  .sr-form {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    align-items: center;
+    column-gap: 16px;
+    row-gap: 6px;
+    padding: 16px 0 6px;
+  }
+
+  .sr-label {
+    color: var(--ss-text);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .sr-seg { justify-self: start; }
+
+  /* No reason yet: the options sit unselected until one is picked */
+  .sr-seg .ss-seg__thumb { transition: transform 0.25s ease, opacity 0.15s ease; }
+  .sr-seg[data-empty] .ss-seg__thumb { opacity: 0; }
+  .sr-seg[data-empty] .ss-seg__option[data-on] { color: var(--ss-text); }
+  .sr-seg { transition: box-shadow 0.2s ease; }
+  .sr-seg[data-missing] { box-shadow: 0 0 0 1.5px var(--ss-warning); }
+
+  .sr-lane {
+    height: 18px;
+    margin-bottom: 8px;
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    transition: color 0.2s ease;
+  }
+
+  .sr-lane[data-tone='warn'] { color: var(--ss-warning-text); }
+
+  .sr-log__head {
+    display: block;
+    padding: 4px 0 8px;
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .sr-entry {
+    height: 40px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .sr-entry__what {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sr-entry__when {
+    color: var(--ss-text-faint);
+    font-size: 12px;
+  }
+
+  /* The phone: the form stacks, Save on its own line under the reason */
+  & .ss-stage[data-layout='compact'] {
+    --gutter: 16px;
+  }
+
+  & .ss-stage[data-layout='compact'] .sr-form { grid-template-columns: 88px 1fr; }
+  & .ss-stage[data-layout='compact'] .sr-form > span:nth-child(3) { display: none; }
+  & .ss-stage[data-layout='compact'] .sr-save { grid-column: 1 / -1; justify-self: start; margin-top: 6px; }
+  & .ss-stage[data-layout='compact'] .sr-seg .ss-seg__option { padding: 0 7px; }
+}

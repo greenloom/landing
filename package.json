@@ -1,0 +1,22 @@
+{
+  "name": "greenloom-landing",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build --config demos/vite.config.ts",
+    "typecheck": "tsc -p demos/tsconfig.json",
+    "serve": "python3 -m http.server 8765 --directory site"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "0.468.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^6.2.1",
+    "typescript": "^5.9.2",
+    "vite": "^8.3.6"
+  }
+}

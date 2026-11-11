@@ -1,0 +1,130 @@
+/* Catalog demo. Pinned with a bottom bleed: one gutter on the top and left,
+   the window running off the right and the bottom. */
+.gl-coa {
+  & .ss-stage {
+    --gutter: 36px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--ss-well);
+  }
+
+  /* Corner bleed: inset top and left, off the right and bottom. The list keeps
+     a column that ends a gutter inside the stage; only empty surface bleeds. */
+  .coa-win {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: 640px;
+    height: 440px;
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .coa-body {
+    height: 100%;
+    padding: 18px 136px 0 20px;
+    background: var(--ss-surface);
+  }
+
+  .coa-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .coa-title {
+    color: var(--ss-text-strong);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* Today's date: the cause of the block, set apart in its own pill */
+  .coa-today {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 10px;
+    border-radius: var(--ss-radius-pill);
+    background: var(--ss-well);
+    color: var(--ss-text);
+    font-size: 12px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .coa-row {
+    min-height: 60px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .coa-focus {
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .coa-focus .coa-row { border-bottom: 0; }
+
+  .coa-thumb {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+  }
+
+  .coa-thumb--quiet {
+    background: var(--ss-well);
+    color: var(--ss-text-faint);
+  }
+
+  .coa-name {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .coa-expiry {
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    transition: color 0.2s ease;
+  }
+
+  .coa-expiry[data-expired] { color: var(--ss-warning-text); }
+
+  .coa-status { font-weight: 500; }
+
+  /* The reason sits under the row's words, on the name's column, so it reads
+     as the row explaining itself, with its fix beside it. */
+  .coa-reason {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 0 14px 48px;
+  }
+
+  .coa-reason__text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ss-warning-text);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  & .ss-stage[data-layout='compact'] {
+    --gutter: 16px;
+  }
+
+  & .ss-stage[data-layout='compact'] .coa-win { width: 400px; }
+  & .ss-stage[data-layout='compact'] .coa-body { padding: 16px 58px 0 16px; }
+
+  /* The phone's sheet: the window's surface and shadow without its chrome */
+  .coa-sheet {
+    overflow: hidden;
+    border-radius: var(--ss-radius-lg);
+    background: var(--ss-surface);
+  }
+}

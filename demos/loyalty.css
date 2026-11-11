@@ -1,0 +1,128 @@
+/* Customers demo. Fade crop: inset on the top and both sides, the window
+   dissolving over its last third through a mask (never a colour overlay). */
+.gl-loyalty {
+  & .ss-stage {
+    --gutter: 36px;
+    overflow: hidden;
+  }
+
+  .ly-win {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    right: var(--gutter);
+    height: 420px;
+    box-shadow: var(--ss-shadow-hero);
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 92%);
+    mask-image: linear-gradient(to bottom, #000 62%, transparent 92%);
+  }
+
+  .ly-body {
+    height: 100%;
+    padding: 20px 20px 0;
+    background: var(--ss-surface);
+  }
+
+  .ly-who {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ly-who__text {
+    display: grid;
+    gap: 6px;
+  }
+
+  .ly-name {
+    color: var(--ss-text-strong);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .ly-club { font-weight: 500; }
+
+  /* The one big number in the frame is the points total */
+  /* The record's body sits on the name's column, past the avatar */
+  .ly-stats,
+  .ly-orders { margin-left: 52px; }
+
+  .ly-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+
+  .ly-stat {
+    display: grid;
+    gap: 2px;
+  }
+
+  .ly-stat__label {
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .ly-stat__value {
+    color: var(--ss-text-strong);
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ly-stat + .ly-stat .ly-stat__value { font-size: 20px; font-weight: 500; align-self: end; }
+  .ly-stat__value { display: block; }
+
+  .ly-orders__head {
+    display: block;
+    padding-bottom: 6px;
+    color: var(--ss-text-faint);
+    font-size: 12px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--ss-line);
+  }
+
+  .ly-row {
+    height: 50px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .ly-order {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ly-when {
+    color: var(--ss-text-faint);
+    font-size: 12px;
+  }
+
+  .ly-points {
+    padding: 3px 8px;
+    border-radius: var(--ss-radius-pill);
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent-text);
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  & .ss-stage[data-layout='compact'] {
+    --gutter: 16px;
+  }
+
+  & .ss-stage[data-layout='compact'] .ly-body { padding: 16px 16px 0; }
+  & .ss-stage[data-layout='compact'] .ly-stats { gap: 22px; }
+
+  .ly-sheet {
+    overflow: hidden;
+    border-radius: var(--ss-radius-lg);
+    background: var(--ss-surface);
+  }
+}
