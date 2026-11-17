@@ -37,11 +37,9 @@ illustrative.
 ## validate (schema page, site/schema/)
 One product document checked against core and the us-ga-hemp profile; the
 per-package THC rolls 285 → 320 and GA-CAP-edible fails. The document is the
-schema repo's `edible-compliant.json` fixture with one dry-weight THC reading
-added (the fixture as published fails GA-THC-TOTAL when its rule function
-runs). Every message shown is the rule module's output for this document,
-and the document passes the repo's test harness as a valid profile fixture
-(checked against the repo's main branch on 2026-11-16).
+schema's `us-ga-hemp/valid/edible-compliant.json` fixture as released in
+v0.1.1 (identical file), shown abbreviated. Every message shown is the rule
+module's output for this document; v0.1.1's harness runs every rule on it.
 
 ## coa-clock (schema page)
 A lab result tested 2025-12-01 checked by `checkCoaGate` with `now` set to
