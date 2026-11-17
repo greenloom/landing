@@ -4,6 +4,8 @@ import './look.css'
 import Workflow from './workflow'
 import Closure from './closure'
 import Thca from './thca'
+import Validate from './validate'
+import CoaClock from './coa-clock'
 
 // Each [data-demo] slot in index.html holds a text fallback; the matching
 // Stage replaces it. Stages handle their own in-view playback, pausing
@@ -12,6 +14,8 @@ const DEMOS: Record<string, ComponentType> = {
   workflow: Workflow,
   closure: Closure,
   thca: Thca,
+  validate: Validate,
+  'coa-clock': CoaClock,
 }
 
 for (const slot of document.querySelectorAll<HTMLElement>('[data-demo]')) {
