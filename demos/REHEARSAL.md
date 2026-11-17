@@ -61,3 +61,41 @@ horizontal scroll at 375.
 - An emulated `prefers-reduced-motion` run (the code paths are the kit's
   poster state and a CSS kill switch).
 - StageShow's `film.mjs --gate` (the script is not in this repo).
+
+## Guide demos (site/guide/)
+Seven scenes on one page, from one engine (`demos/guide/guide.tsx`, scenes as
+data in `scenes.ts`): add-product, same-day, handoff, not-home, messages, count,
+pause. Copied from: the `workflow` demo above (its card, step list and in-view
+stage), not from a stageshow gold; the cards are deliberately one shape so the
+page reads as one set. The instructions are the page's own `<ol>` in
+`site/guide/index.html`; `mount.tsx` reads it before replacing the slot, so with
+JS off the steps still read.
+Moments come from the archive's Oil & Eve features research (same-day delivery,
+dispatch board, AI product builder), the journey-led IA direction's task list
+(accept and prepare an order, pickup vs dispatch checks, COA-first product,
+correct stock, pause ordering) and public operator material (ID failures at
+handoff, failed deliveries, count variances). No operator interviews exist, so
+the page claims nothing about how often tasks happen.
+Sources for words (greenLoomv2 `src/components/admin/`): `orders/fulfillment-panel.tsx`
+(every dialog title, why-line, field label, FAIL_WORD, Retry, Cancel fulfillment…),
+`orders/dispatch-lane-card.tsx` (Accept…, Start packing, Mark ready),
+`orders/order-words.tsx` (status and payment words, lanes), `inventory/adjust-sheet.tsx`
+(Adjust stock, Change, Reason, Save adjustment, History), `storefront/interruptions-panel.tsx`
+(Pause methods, Reason, Notice shoppers see, Resume now, Paused),
+`catalog/builder/draft-steps.tsx` and `ai-steps.tsx` (Source, Lab record and lot,
+Product, Review; Read label, Read lab), `app/(admin)/admin/support/page.tsx`
+(Messages, Waiting, Answered).
+Simplified: the Source step's photo and file upload is two rows; the Lab record
+step shows values already read; Messages and the pause statuses show their words
+in plain rows, not the app's list; "Open the thread" and the Resumed / Delivered
+labels stand for a click and a finished state. Order GL-4F2A91C0, Maya Ortiz,
+Jordan, Dana and Marsh Lane Hemp are sample data.
+Gate (`film.mjs --gate`): fails, as the existing workflow demo above does. The
+lines left are the shared card's (`wf-foot` "bottom 8px" fires 6 times on the
+workflow demo too; the card sits inside the stage with uneven gutters), the
+Swap / Roll "vanishes with no exit" and "hard edge" lines, and the whole-stage
+jumps when a step restarts. Fixed from the first run: field labels aligned with
+their values, one-line field rows (not 68px "fat" rows), the cursor aimed off the
+button label, values that spilled their slot at 390 wide.
+Not checked: Safari and Firefox, a real touch device, a screen reader on the
+step list, reduced motion beyond the poster frame.
