@@ -1,0 +1,217 @@
+/* The workflow: a step list (the navigation) beside one stage. */
+.wf {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.wf-steps { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+
+.wf-step {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  text-align: left;
+  color: var(--text-3);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.wf-step:hover { background: var(--sage-2); }
+.wf-step[aria-current] { background: var(--sage-2); color: var(--text-1); }
+
+.wf-step__n {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--sage-7);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.wf-step[data-past] .wf-step__n { box-shadow: inset 0 0 0 1px var(--green); color: var(--green); }
+.wf-step[aria-current] .wf-step__n { background: var(--green); box-shadow: none; color: #fff; }
+
+.wf-step__text { display: grid; min-width: 0; }
+.wf-step__name { font-size: 16px; font-weight: 600; line-height: 24px; }
+/* Only the current step explains itself */
+.wf-step__desc {
+  max-height: 0;
+  overflow: hidden;
+  color: var(--text-3);
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0;
+  transition: max-height 0.35s var(--ease-out), opacity 0.25s ease;
+}
+.wf-step[aria-current] .wf-step__desc { max-height: 6em; opacity: 1; }
+
+.wf-now { display: none; }
+
+.wf-replay {
+  margin: 12px 0 0 50px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--green);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  visibility: hidden;
+}
+.wf-replay[data-show] { visibility: visible; }
+
+@media (max-width: 859px) {
+  .wf { grid-template-columns: 1fr; gap: 20px; }
+  .wf-steps { display: flex; justify-content: space-between; gap: 0; }
+  .wf-step { padding: 10px; }
+  .wf-step:hover, .wf-step[aria-current] { background: none; }
+  .wf-step__n { width: 32px; height: 32px; font-size: 14px; }
+  .wf-step__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .wf-now { display: block; min-height: 6.2em; margin: 8px 0 0; color: var(--text-3); font-size: 15px; line-height: 1.5; }
+  .wf-now strong { color: var(--text-1); font-weight: 600; }
+  .wf-replay { margin: 0; }
+}
+
+/* ── Inside the stage ── */
+.gl-wf .ss-stage { border-radius: 16px; background: var(--ss-well); }
+
+.gl-wf {
+  .wf-col {
+    position: absolute;
+    inset: 0 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .wf-lanes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  }
+  .wf-lanes[data-show] { opacity: 1; }
+  /* The board's four lanes as one segmented track: the order's lane is the
+     raised segment. No rings, so nothing reads as a stray border. */
+  .wf-lanes { padding: 0 3px; border-radius: 8px; background: #e6e9e8; }
+  .wf-lanes[data-show] { height: 32px; padding: 3px; }
+  .wf-lanes span {
+    display: grid;
+    place-items: center;
+    height: 26px;
+    border-radius: 6px;
+    color: var(--ss-text);
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .wf-lanes span[data-on] { background: var(--ss-surface); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.04); color: var(--ss-text-strong); }
+
+  .wf-card, .wf-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--ss-surface);
+    box-shadow: 0 0 0 1px rgba(0, 24, 8, 0.125);
+  }
+
+  .wf-crumb { color: var(--ss-text-faint); font-size: 12px; line-height: 16px; }
+
+  .wf-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 4px 0 10px;
+  }
+  .wf-title { color: var(--ss-text-strong); font-size: 18px; font-weight: 600; line-height: 26px; letter-spacing: -0.0025em; white-space: nowrap; }
+
+  .wf-tag {
+    display: inline-flex;
+    flex: none;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #eef1f0;
+    color: #1a211e;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .wf-tag[data-tone='info'] { background: #e6f4fe; color: #113264; }
+  .wf-tag[data-tone='pending'] { background: #fff7c2; color: #4f3422; }
+  .wf-tag[data-tone='success'] { background: #e9f6e9; color: #203c25; }
+
+  .wf-body { display: block; }
+  .wf-body__in { display: flex; flex-direction: column; width: 400px; } /* the card's inner width: Swap sizes to its content */
+
+  .wf-fact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 40px;
+    box-shadow: inset 0 1px rgba(0, 24, 8, 0.09);
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .wf-fact__label { color: var(--ss-text); }
+  .wf-fact__value { display: flex; flex-direction: column; align-items: flex-end; color: var(--ss-text-strong); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .wf-fact__note { color: var(--ss-text-faint); font-size: 12px; font-weight: 400; line-height: 16px; }
+
+  .wf-say { margin: 0 0 12px; padding-top: 12px; box-shadow: inset 0 1px rgba(0, 24, 8, 0.09); color: var(--ss-text); font-size: 14px; line-height: 20px; }
+
+  .wf-tick { display: flex; gap: 10px; padding: 10px 0; color: var(--ss-text-strong); font-size: 14px; font-weight: 500; line-height: 20px; }
+  .wf-box {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px #b8bcba;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .wf-box path { fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 12; stroke-dashoffset: 12; transition: stroke-dashoffset 0.25s ease 0.05s; }
+  .wf-box[data-on] { background: var(--ss-accent); box-shadow: none; }
+  .wf-box[data-on] path { stroke-dashoffset: 0; }
+
+  .wf-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    box-shadow: inset 0 1px rgba(0, 24, 8, 0.09);
+  }
+  .wf-note { color: var(--ss-text); font-size: 12px; line-height: 16px; }
+  .ss-button[data-locked] { color: var(--ss-text-faint); }
+
+  .wf-menu { gap: 6px; padding: 16px 20px; }
+  .wf-menu__row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .wf-menu__name { color: var(--ss-text-strong); font-size: 16px; font-weight: 600; line-height: 24px; }
+  .wf-menu__name small { margin-left: 8px; color: var(--ss-text-faint); font-size: 13px; font-weight: 400; }
+  .wf-menu__price { color: var(--ss-text-strong); font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .wf-menu__lab { color: var(--ss-text); font-size: 12px; line-height: 16px; }
+
+  & .ss-stage[data-layout='compact'] .wf-col { inset: 0 16px; }
+  & .ss-stage[data-layout='compact'] .wf-title { font-size: 16px; }
+  & .ss-stage[data-layout='compact'] .wf-body__in { width: 286px; }
+}

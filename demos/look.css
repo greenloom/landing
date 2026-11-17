@@ -1,49 +1,24 @@
-/* Green Loom's look, mapped onto the kit's tokens (references/looks.md).
-   Every demo stage carries the `gl` class, so one file restyles them all. */
+/* Green Loom's look, mapped onto the kit's tokens. The values are the app's
+   own (envy: Radix sage greys, the jade brand green, hairline rings instead
+   of drop shadows). Every demo stage carries the `gl` class. */
 .gl .ss-stage {
   --ss-font: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --ss-text-strong: #141414;
-  --ss-text: #3d3d3d;
-  --ss-text-faint: #6b6b6b;
+  --ss-text-strong: #1a211e;
+  --ss-text: #5f6563;
+  --ss-text-faint: #868e8b;
 
-  /* Two greens, as on the page: the deep green for text and for fills that
-     carry white text; the brand green for soft fills and marks. */
-  --ss-accent: #2f7414;
-  --ss-accent-2: #52b22b;
-  --ss-accent-soft: rgba(82, 178, 43, 0.12);
-  --ss-accent-text: #2f7414;
-  --ss-success: #2f7414;
-  --ss-success-soft: rgba(82, 178, 43, 0.14);
-  --ss-success-text: #2f7414;
-  --ss-warning: #a8551c;
-  --ss-warning-soft: rgba(168, 85, 28, 0.1);
-  --ss-warning-text: #8f4716;
+  --ss-accent: #0f6b45;
+  --ss-accent-2: #208368;
+  --ss-accent-soft: #e6f7ed;
+  --ss-accent-text: #0f6b45;
 
-  --ss-well: #f3f3f3;
-  --ss-radius-sm: 8px;
-  --ss-radius-md: 10px;
-  /* Surfaces inside a demo round to 12px; the plate around them to 24px,
-     like the page's tiles */
+  --ss-well: #f7f9f8;
+  --ss-radius-sm: 6px;
+  --ss-radius-md: 8px;
   --ss-radius-lg: 12px;
-  --ss-radius-window: 12px;
-  --ss-radius-pill: 999px;
 
-  /* Neutral shadows, the same family as the page's hero card and tiles
-     (the kit's defaults are blue-tinted) */
-  --ss-shadow-hero: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 24px 48px -12px rgba(0, 0, 0, 0.12);
-  --ss-shadow-ground: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 12px 24px -12px rgba(0, 0, 0, 0.1);
-  --ss-shadow-lift: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 12px 28px -6px rgba(0, 0, 0, 0.14);
-  --ss-shadow-satellite: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 14px 32px -8px rgba(0, 0, 0, 0.12);
-}
-
-.gl .ss-card { --ss-card-radius: 12px; }
-
-/* The three product demos share one frame: a rounded plate the UI sits on.
-   The flow diagram and the bento demos sit on the page's and tiles' own ground. */
-.gl-coa .ss-stage,
-.gl-handoff .ss-stage,
-.gl-loyalty .ss-stage {
-  border-radius: 24px;
+  /* One frame for every demo: a quiet plate the UI sits on */
+  border-radius: 16px;
   background: var(--ss-well);
 }

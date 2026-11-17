@@ -1,0 +1,54 @@
+.gl-closure {
+  .cl-col { position: absolute; inset: 0 40px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+
+  .cl-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--ss-surface);
+    box-shadow: 0 0 0 1px rgba(0, 24, 8, 0.125);
+  }
+
+  .cl-crumb { color: var(--ss-text-faint); font-size: 12px; line-height: 16px; }
+  .cl-open { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; }
+  .cl-title { color: var(--ss-text-strong); font-size: 16px; font-weight: 600; line-height: 24px; }
+
+  /* The app's red callout (Radix red, soft, high contrast) */
+  .cl-callout {
+    display: grid;
+    gap: 4px;
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #feebec;
+    color: #641723;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .cl-callout strong { font-weight: 600; }
+  .cl-num { font-variant-numeric: tabular-nums; }
+  .cl-reopen { padding-top: 12px; }
+  .cl-note { display: block; color: var(--ss-text-strong); font-size: 14px; line-height: 20px; }
+
+  .cl-banner { margin: 8px 0 4px; padding: 10px 12px; border-radius: 8px; background: #fff7c2; color: #4f3422; font-size: 14px; line-height: 20px; }
+  .cl-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 10px;
+    box-shadow: inset 0 1px rgba(0, 24, 8, 0.09);
+  }
+  .cl-name { color: var(--ss-text-strong); font-size: 15px; font-weight: 600; line-height: 22px; }
+  .cl-name small { margin-left: 8px; color: var(--ss-text-faint); font-size: 13px; font-weight: 400; }
+  .cl-price { color: var(--ss-text-strong); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  & .ss-stage[data-layout='compact'] .cl-col { inset: 0 16px; }
+  & .ss-stage[data-layout='compact'] .cl-open { flex-direction: column; align-items: flex-start; }
+}
+
+/* The app's trigger is a soft red button, not a solid one */
+.gl-closure .ss-button[data-variant='danger'] { background: #feebec; color: #641723; }
+.gl-closure .ss-button[data-variant='danger'][data-hover] { background: #fdd8d8; }
