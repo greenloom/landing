@@ -7,9 +7,9 @@ import './validate.css'
 //   1. The run: core is valid, then the five rule rows land in turn, all pass.
 //   2. The per-package THC rolls 285 → 320 in the document.
 //   3. The run again: core is still valid; GA-CAP-edible fails with its message.
-// Real strings: the document (a copy of the repo's edible fixture with a
-// dry-weight THC reading added), the rule IDs and every message, which are the
-// rule module's own output for this document.
+// Real strings: the document (the schema's us-ga-hemp edible-compliant.json
+// fixture as released in v0.1.1, abbreviated), the rule IDs and every message,
+// which are the rule module's own output for this document.
 
 type S = { shown: number; edited: boolean }
 const initial: S = { shown: 0, edited: false }
