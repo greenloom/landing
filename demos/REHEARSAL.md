@@ -1,6 +1,6 @@
 # Rehearsal: Green Loom landing page demos
 
-Three StageShow scenes (workflow, closure, thca), built with the kit (`kit/`) and compiled to
+StageShow scenes: workflow, closure and thca on the main page; validate and coa-clock on the schema page, built with the kit (`kit/`) and compiled to
 `../site/assets/demos/` with `npm run build`. The hero is plain HTML and CSS.
 Every label and status word in a scene is copied from the app
 (greenloom/retail-admin); the data is sample data.
@@ -33,6 +33,20 @@ each row. Sources: `settings/store/page.tsx` (notice, "See where"),
 `settings/thca-worklist/page.tsx` (title, meta, columns),
 `manage-store-identity.ts` (field names). Product names and texts are
 illustrative.
+
+## validate (schema page, site/schema/)
+One product document checked against core and the us-ga-hemp profile; the
+per-package THC rolls 285 → 320 and GA-CAP-edible fails. The document is the
+schema repo's `edible-compliant.json` fixture with one dry-weight THC reading
+added (the fixture as published fails GA-THC-TOTAL when its rule function
+runs). Every message shown is the rule module's output for this document,
+and the document passes the repo's test harness as a valid profile fixture
+(checked against the repo's main branch on 2026-11-16).
+
+## coa-clock (schema page)
+A lab result tested 2025-12-01 checked by `checkCoaGate` with `now` set to
+Nov 30, Dec 1 and Dec 2, 2026: passes, passes, then "tested_at is more than
+365 days old".
 
 ## Data
 The demo product is gummies, not flower: the team's Georgia rule research
