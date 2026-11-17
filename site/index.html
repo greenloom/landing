@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Software for running a hemp store. Lab records, the menu, orders and the handoff at the counter work from one record.">
+  <meta name="description" content="New hemp rules are closing stores. Green Loom is store software built around those rules, so running your store right is part of the everyday work.">
   <meta property="og:title" content="Green Loom | Where does Georgia grow from here?">
-  <meta property="og:description" content="Software for running a hemp store: lab records, the menu, orders and the handoff at the counter on one record.">
+  <meta property="og:description" content="Store software built around the rules hemp retailers have to follow.">
   <title>Green Loom | Where does Georgia grow from here?</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%232f7414' d='M14 2h4v12h12v4H18v12h-4V18H2v-4h12z'/%3E%3C/svg%3E">
   <script>document.documentElement.classList.add('js')</script>
@@ -44,6 +44,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 button,a{-webkit-tap-highlight-color:transparent}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip-link{position:absolute;top:-80px;left:24px;z-index:5;padding:10px 14px;color:#fff;background:var(--text-1);border-radius:8px;font-size:14px;text-decoration:none}
 .skip-link:focus{top:16px}
 
@@ -68,16 +69,19 @@ h1 em{color:var(--green-ink);font-style:normal}
 .tagline{margin:0;max-width:34em;color:var(--text-3);font-size:18px;line-height:1.55;text-wrap:balance}
 .hero-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 24px;margin-top:8px}
 
-.scene{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center}
-/* The thread: one hairline behind every card */
-.scene::before{content:"";position:absolute;left:24px;right:24px;top:50%;height:1px;background:var(--sage-7)}
-.scene-col{position:relative;display:grid;gap:20px}
+.scene{position:relative;display:grid;grid-template-columns:minmax(0,4.4fr) minmax(0,6fr) minmax(0,5.6fr);gap:40px;align-items:center}
+/* The thread: hairlines drawn from card to card (script below), behind them */
+.thread{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.thread path{fill:none;stroke:var(--sage-7);stroke-width:1;stroke-dasharray:1;stroke-dashoffset:0;animation:draw 1s var(--ease-out) .5s both}
+@keyframes draw{from{stroke-dashoffset:1}}
+.scene-col{position:relative;display:grid;gap:28px}
 .rep{position:relative;display:grid;gap:8px}
 .rep__where{color:var(--text-3);font-size:12px;font-weight:500;line-height:16px;letter-spacing:.02em}
 .rep__card{padding:16px;border-radius:12px;background:#fff;box-shadow:0 0 0 1px var(--hairline)}
 .rep--focal .rep__card{padding:24px}
 .rep__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .rep__title{margin:0;font-size:15px;font-weight:600;line-height:22px}
+.rep__head>.rep__title:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
 .rep--focal .rep__title{font-size:20px;line-height:28px;letter-spacing:-.005em}
 .rep__sub{margin:2px 0 0;color:var(--text-3);font-size:13px;line-height:18px}
 .facts{display:grid;margin:12px 0 0}
@@ -90,9 +94,9 @@ h1 em{color:var(--green-ink);font-style:normal}
 .tag--info{background:#e6f4fe;color:#113264}
 .rep__tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 /* The same fact, lit in every card that carries it */
-[data-f]{border-radius:4px;transition:background-color .35s ease,box-shadow .35s ease}
-.scene[data-on=name] [data-f=name],.scene[data-on=price] [data-f=price],.scene[data-on=lab] [data-f=lab]{background:var(--jade-4);box-shadow:0 0 0 4px var(--jade-4);color:var(--text-1)}
-.scene-caption{margin:40px 0 0;color:var(--text-3);font-size:14px;line-height:1.5;text-align:center}
+[data-f]{border-radius:3px;transition:background-color .35s ease,box-shadow .35s ease}
+.scene[data-on=batch] [data-f=batch],.scene[data-on=results] [data-f=results],.scene[data-on=name] [data-f=name]{background:var(--jade-3);box-shadow:0 0 0 3px var(--jade-3)}
+.scene-caption{margin:44px 0 0;color:var(--text-3);font-size:14px;line-height:1.5;text-align:center}
 
 /* Sections */
 .section{padding:120px var(--gutter)}
@@ -103,9 +107,15 @@ h1 em{color:var(--green-ink);font-style:normal}
 .lede{margin:0;max-width:38em;color:var(--text-3);font-size:18px;line-height:1.55;text-wrap:pretty}
 .demo{width:100%;color:var(--text-3);font-size:15px;line-height:1.6}
 .demo ol{margin:0;padding-left:1.2em}
-.demo-note{margin:24px 0 0;color:var(--text-3);font-size:13px}
 
 /* Plain columns on one rule: statements, not cards */
+/* The stat: the opportunity, sourced */
+.stat{display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:end;margin:0 0 72px}
+.stat__n{margin:0;font-size:120px;line-height:.8;font-weight:800;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--green)}
+.stat__text{margin:0;max-width:30em;font-size:22px;line-height:1.4;font-weight:600;letter-spacing:-.01em;text-wrap:pretty}
+.stat__src{grid-column:2;margin:0;color:var(--text-3);font-size:13px}
+.stat__src a{text-underline-offset:3px}
+.cols-head{margin:0 0 20px;color:var(--text-3);font-size:14px;font-weight:600}
 .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin:0;padding:0;list-style:none}
 .cols li{padding-top:20px;border-top:1px solid var(--sage-7)}
 .cols h3{margin:0 0 8px;font-size:18px;line-height:26px;font-weight:700;letter-spacing:-.005em;text-wrap:balance}
@@ -119,19 +129,17 @@ h1 em{color:var(--green-ink);font-style:normal}
 .feature--flip .feature__copy{order:2}
 .feature h3{margin:0 0 12px;font-size:28px;line-height:1.2;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
 .feature__copy>p{margin:0 0 20px;color:var(--text-3);font-size:17px;line-height:1.55;text-wrap:pretty}
-.points{display:grid;gap:8px;margin:0;padding:0;list-style:none}
-.points li{padding-left:16px;border-left:1px solid var(--sage-7);color:var(--text-2);font-size:15px;line-height:1.5}
+.points{display:grid;margin:0;padding:0;list-style:none}
+.points li{padding:10px 0;border-top:1px solid var(--hairline-soft);color:var(--text-2);font-size:15px;line-height:1.5}
 
-/* Why it matters: the claim, then its limits */
-.matters{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:start}
-.matters p{margin:0 0 16px;color:var(--text-2);font-size:18px;line-height:1.6;text-wrap:pretty}
-.edges{padding:24px;border-radius:12px;box-shadow:0 0 0 1px var(--hairline)}
-.edges h3{margin:0 0 12px;font-size:15px;line-height:22px;font-weight:600}
-.edges ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}
-.edges li{padding-top:10px;box-shadow:inset 0 1px var(--hairline-soft);color:var(--text-3);font-size:14px;line-height:1.5}
+/* Also built in: four short facts on one rule */
+.also{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin:96px 0 0;padding:0;list-style:none}
+.also li{padding-top:16px;border-top:1px solid var(--sage-7);color:var(--text-3);font-size:15px;line-height:1.5}
+.also strong{display:block;margin-bottom:4px;color:var(--text-1);font-weight:600}
+.fine{margin:40px 0 0;max-width:44em;color:var(--text-3);font-size:14px;line-height:1.55}
 
 /* Closing */
-.closing{padding:120px var(--gutter) 0;background:var(--sage-2)}
+.closing{padding:120px var(--gutter) 0;background:#fff}
 .closing__inner{display:flex;flex-direction:column;align-items:flex-start;gap:16px;max-width:1040px;margin:0 auto}
 .closing .cta{margin-top:12px}
 .site-footer{display:flex;align-items:center;gap:12px;max-width:1040px;margin:96px auto 0;padding:24px 0 40px;border-top:1px solid var(--hairline);color:var(--text-3);font-size:13px}
@@ -143,11 +151,9 @@ h1 em{color:var(--green-ink);font-style:normal}
 
 /* Page load: the headline, then the cards arrive along the thread, left to right */
 @keyframes enter-rise{from{opacity:0;transform:translateY(var(--rise,12px))}}
-@keyframes enter-draw{from{transform:scaleX(0)}}
 .hero-intro>*{animation:enter-rise .6s var(--ease-out) both}
 .hero-intro>:nth-child(2){animation-delay:.08s}
 .hero-intro>:nth-child(3){animation-delay:.16s}
-.scene::before{transform-origin:left;animation:enter-draw 1.1s var(--ease-out) .3s both}
 .rep{animation:enter-rise .7s var(--ease-out) both;animation-delay:calc(.35s + var(--i) * .16s)}
 
 @media(max-width:859px){
@@ -159,7 +165,7 @@ h1 em{color:var(--green-ink);font-style:normal}
   h1{font-size:clamp(30px,9vw,56px)}
   .tagline{font-size:16px}
   .scene{grid-template-columns:1fr;gap:20px;max-width:420px;margin:0 auto}
-  .scene::before{left:50%;right:auto;top:24px;bottom:24px;width:1px;height:auto;transform-origin:top;animation-name:enter-draw-y}
+  .thread{display:none}
   .rep--focal .rep__card{padding:20px}
   .scene-caption{margin-top:28px}
   .section{padding:72px var(--gutter)}
@@ -168,15 +174,18 @@ h1 em{color:var(--green-ink);font-style:normal}
   .lede{font-size:16px}
   .cols{grid-template-columns:1fr;gap:28px}
   .turn{margin-top:48px;font-size:20px}
-  .feature,.feature--flip,.matters{grid-template-columns:1fr;gap:28px}
+  .feature,.feature--flip{grid-template-columns:1fr;gap:28px}
+  .stat{grid-template-columns:1fr;gap:16px;margin-bottom:48px}
+  .stat__n{font-size:88px}
+  .stat__text{font-size:19px}
+  .stat__src{grid-column:1}
+  .also{grid-template-columns:1fr;gap:20px;margin-top:64px}
   .feature+.feature{margin-top:72px}
   .feature--flip .feature__copy{order:0}
   .feature h3{font-size:24px}
-  .matters p{font-size:16px}
   .closing{padding-top:72px}
   .site-footer{margin-top:64px}
 }
-@keyframes enter-draw-y{from{transform:scaleY(0)}}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
   </style>
@@ -186,7 +195,7 @@ h1 em{color:var(--green-ink);font-style:normal}
 
   <header class="site-header">
     <a class="brand" href="#main" aria-label="Green Loom home"><img src="assets/logo.svg" width="19" height="19" alt=""></a>
-    <nav class="site-nav" aria-label="On this page"><a href="#problem">The problem</a><a href="#workflow">How it works</a><a href="#more">More of the app</a></nav>
+    <nav class="site-nav" aria-label="On this page"><a href="#problem">Why now</a><a href="#workflow">How it works</a><a href="#rules">Built from the rules</a></nav>
     <a class="cta" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
   </header>
 
@@ -194,23 +203,24 @@ h1 em{color:var(--green-ink);font-style:normal}
   <div class="hero">
     <div class="hero-intro">
       <h1>Where does Georgia <em>grow</em> from here?</h1>
-      <p class="tagline">Green Loom is software for running a hemp store. Lab records, the menu, orders and the handoff at the counter all work from one record.</p>
+      <p class="tagline">New hemp rules are closing stores. Green Loom is store software built around those rules, so running your store right is part of the everyday work.</p>
       <div class="hero-actions">
         <a class="cta" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
         <a class="text-link" href="#workflow">See how it works</a>
       </div>
     </div>
 
-    <div class="scene" id="scene" role="img" aria-label="Sample data: one product, Coastal Haze Flower, shown four ways. Its lab record, its catalog entry for staff, its menu listing for shoppers, and a line on a customer's order. The name, the $42.00 price and the lab results are the same in each.">
+    <div class="scene" id="scene" role="img" aria-label="One batch of Coastal Haze Gummies shown four ways: its checked lab record, its catalog entry, its product page with the same lab results, and a customer order with the age check confirmed. Batch CH-0611 and its results carry through.">
+      <svg class="thread" id="thread" aria-hidden="true"></svg>
       <div class="scene-col" aria-hidden="true">
         <div class="rep" style="--i:0">
           <span class="rep__where">Lab record</span>
           <div class="rep__card">
-            <div class="rep__head" style="flex-wrap:wrap"><p class="rep__title" style="white-space:nowrap">Batch CH-0611</p><span class="tag tag--ok" data-f="lab">Lab record checked</span></div>
+            <div class="rep__head" style="flex-direction:column;gap:6px"><p class="rep__title" style="white-space:nowrap"><span data-f="batch">Batch CH-0611</span></p><span class="tag tag--ok">Lab record checked</span></div>
             <dl class="facts">
               <div><dt>Tested on</dt><dd>Jun 1, 2026</dd></div>
               <div><dt>Valid until</dt><dd>Jun 1, 2027</dd></div>
-              <div><dt>THC · CBD</dt><dd><span data-f="lab">22.5% · 0.3%</span></dd></div>
+              <div><dt>THC · CBD</dt><dd><span data-f="results">0.28% · 1.1%</span></dd></div>
             </dl>
           </div>
         </div>
@@ -220,132 +230,121 @@ h1 em{color:var(--green-ink);font-style:normal}
           <span class="rep__where">Catalog</span>
           <div class="rep__card">
             <div class="rep__head">
-              <div><p class="rep__title"><span data-f="name">Coastal Haze Flower</span></p><p class="rep__sub">Oil &amp; Eve · 3.5 g · Flower</p></div>
+              <div><p class="rep__title"><span data-f="name">Coastal Haze Gummies</span></p><p class="rep__sub">Marsh Lane Hemp · 20 ct · Edibles</p></div>
               <span class="tag tag--ok">Published</span>
             </div>
             <dl class="facts">
-              <div><dt>Price</dt><dd><span data-f="price">$42.00</span></dd></div>
+              <div><dt>Price</dt><dd>$42.00</dd></div>
               <div><dt>Available</dt><dd>24</dd></div>
-              <div><dt>SKU</dt><dd>OLE-HAZE-3-5</dd></div>
-              <div><dt>Lab record</dt><dd><span class="tag tag--ok" data-f="lab">Lab record checked</span></dd></div>
+              <div><dt>Batch</dt><dd><span data-f="batch">CH-0611</span></dd></div>
+              <div><dt>Lab record</dt><dd><span class="tag tag--ok">Lab record checked</span></dd></div>
             </dl>
           </div>
         </div>
       </div>
       <div class="scene-col" aria-hidden="true">
         <div class="rep" style="--i:2">
-          <span class="rep__where">Menu</span>
+          <span class="rep__where">Product page</span>
           <div class="rep__card">
-            <div class="rep__head"><p class="rep__title"><span data-f="name">Coastal Haze Flower</span></p><p class="rep__title"><span data-f="price">$42.00</span></p></div>
-            <p class="rep__sub">3.5 g · Lab results: <span data-f="lab">THC 22.5% · CBD 0.3%</span></p>
+            <div class="rep__head"><p class="rep__title"><span data-f="name">Coastal Haze Gummies</span></p><p class="rep__title">$42.00</p></div>
+            <p class="rep__sub">Lab results · <span data-f="batch">Batch CH-0611</span><br><span data-f="results">THC 0.28% · CBD 1.1%</span></p>
           </div>
         </div>
         <div class="rep" style="--i:3">
           <span class="rep__where">Order</span>
           <div class="rep__card">
             <p class="rep__sub" style="margin:0 0 6px">GL-4F2A91C0 · Pickup</p>
-            <div class="rep__head"><p class="rep__title">1 × <span data-f="name">Coastal Haze Flower</span></p><p class="rep__title"><span data-f="price">$42.00</span></p></div>
+            <div class="rep__head"><p class="rep__title">1 × <span data-f="name">Coastal Haze Gummies</span></p><p class="rep__title">$42.00</p></div>
             <div class="rep__tags"><span class="tag tag--info">Held</span><span class="tag tag--ok">Age confirmed</span></div>
           </div>
         </div>
       </div>
     </div>
-    <p class="scene-caption">One product, in the four places it shows up. Sample data.</p>
+    <p class="scene-caption">One lab record, carried from the batch to the counter.</p>
   </div>
 
   <section class="section section--tint" id="problem" aria-labelledby="problem-title">
     <div class="section__inner">
       <div class="section__intro reveal">
-        <h2 id="problem-title">A hemp sale depends on several things being true at once</h2>
-        <p class="lede">The lab report is current. The listing matches it. The stock exists. The buyer is 21, and someone checked their ID. In most stores each of those lives somewhere different: a folder of PDFs, a menu plugin, a point of sale, a clipboard.</p>
+        <h2 id="problem-title">The rules are changing faster than stores can keep up</h2>
       </div>
+      <div class="stat reveal">
+        <p class="stat__n" aria-hidden="true">70%</p>
+        <p class="stat__text"><span class="sr-only">70%</span> of surveyed U.S. hemp businesses say they will close or move out of the country under the new federal hemp rules.</p>
+        <p class="stat__src">Hemp operators in 35 states, surveyed June–July 2026. <a href="https://whitneyeconomics.com/press-detail/whitney-economics-releases-u.s.-hemp-cannabinoid-report-for-2026" target="_blank" rel="noopener noreferrer">Whitney Economics, September 2026</a></p>
+      </div>
+      <p class="lede reveal" style="margin:0 0 72px">Most hemp-THC products are set to lose federal hemp status on December 11, 2026. Georgia already sets its own rules for lab testing, labels and age. Staying open means showing, every day, that each product and each sale meets them.</p>
+      <p class="cols-head reveal">Why that’s hard today</p>
       <ul class="cols reveal">
-        <li><h3>A listing outlives its lab report</h3><p>Nothing ties the expiry date on a PDF to the product page, so keeping them in step depends on someone remembering.</p></li>
-        <li><h3>The counter can’t see the order’s history</h3><p>Was it paid? Is the stock still set aside? Did the buyer confirm their age? The answers are in three different tools.</p></li>
-        <li><h3>Every change is a manual sweep</h3><p>When a delivery method has to stop or a product has to come down, it gets done tool by tool, by hand.</p></li>
+        <li><h3>The proof lives outside the store</h3><p>Lab reports sit in a folder or an inbox. Nothing stops a product from staying on the menu after its report goes out of date.</p></li>
+        <li><h3>Age checks never reach the order</h3><p>A checkbox online, a glance at the counter, and nothing that ties either one to the order.</p></li>
+        <li><h3>Every rule change is a manual sweep</h3><p>A term you can no longer use, or an order to stop selling, means going through every listing, label and channel by hand.</p></li>
       </ul>
-      <p class="turn reveal">Green Loom keeps the product, its lab record, the order and the handoff on one record, so each step starts with what the last one recorded.</p>
+      <p class="turn reveal">Green Loom builds those checks into the work. The lab record decides what can be published, the order carries its age check to the counter, and a rule change is one list or one action.</p>
     </div>
   </section>
 
   <section class="section" id="workflow" aria-labelledby="workflow-title">
     <div class="section__inner">
       <div class="section__intro reveal">
-        <h2 id="workflow-title">One batch, from lab report to the counter</h2>
-        <p class="lede">Follow a single product through the app. Pick any step to watch it.</p>
+        <h2 id="workflow-title">Every sale passes the same checks</h2>
+        <p class="lede">Follow one batch from its lab report to the counter. Pick any step to watch it.</p>
       </div>
       <div class="reveal">
         <div class="demo" data-demo="workflow">
           <ol>
-            <li>Record the batch: enter the lab report once, and stock arrives as lots under it.</li>
-            <li>Publish the listing: a product goes on the menu once it has a price and a checked lab record.</li>
-            <li>Customer confirms 21+: at checkout the shopper confirms they are 21 or older.</li>
-            <li>Work the order: accept it, pack it, mark it ready.</li>
-            <li>Hand it off: staff confirm they checked a government ID and collected payment.</li>
+            <li>Check the lab report: enter the batch’s lab report once and check it.</li>
+            <li>Publish only what’s tested: a product reaches the menu only with a checked, in-date lab record.</li>
+            <li>Confirm age at checkout: shoppers confirm they’re 21 or older and are told to bring ID.</li>
+            <li>Keep the order’s facts together: payment, held stock and the age check travel with the order.</li>
+            <li>Check ID at the counter: handoff completes only after staff confirm the ID check and payment.</li>
           </ol>
         </div>
-        <p class="demo-note">Sample data. Screens are simplified; the labels and status words are the app’s own.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint" id="more" aria-labelledby="more-title">
+  <section class="section section--tint" id="rules" aria-labelledby="rules-title">
     <div class="section__inner">
       <div class="section__intro reveal">
-        <h2 id="more-title">The work around the sale</h2>
-        <p class="lede">Two jobs that usually mean a spreadsheet or a scramble.</p>
+        <h2 id="rules-title">Built from the rule text, not around it</h2>
+        <p class="lede">Before designing screens, we read Georgia’s hemp rules and the Department of Agriculture’s guidance at the source, and mapped each requirement to the record it belongs on. We published that work as the <a href="https://github.com/greenloom/cannabis-product-schema" target="_blank" rel="noopener">Cannabis Product Schema</a>, an open data format with a Georgia hemp profile.</p>
       </div>
       <article class="feature">
         <div class="feature__copy reveal">
-          <h3>See the profit under every price</h3>
-          <p>A price book sets prices for a whole category: tiers down the side, sizes across. Enter what a gram costs and each price shows what it earns.</p>
+          <h3>Stop selling in one action. Reopen with two people.</h3>
+          <p>When the law requires the store to stop selling, one action stops ordering on every method. Reopening takes a recorded reason and approval from two different people.</p>
           <ul class="points">
-            <li>Round prices to the cent, up to the next $5, or down to the $5 below</li>
-            <li>A price typed on one product is pinned, and later changes to the book skip it</li>
+            <li>Held stock is released and open orders are flagged for review</li>
+            <li>Each approver confirms with their own authenticator code</li>
           </ul>
         </div>
         <div class="reveal">
-          <div class="demo" data-demo="price-book" role="img" aria-label="Sample data: a price book for Flower. After a cost of $4.00 per gram is entered, a profit appears under each price, for example $28.00 under the $42.00 price for 3.5 grams.">Sample: entering a cost per gram shows the profit under each price.</div>
+          <div class="demo" data-demo="closure" role="img" aria-label="Staff start a legal closure for Marsh Lane Hemp. Shoppers see that ordering is closed. One person approves reopening, and the store stays closed until a different person gives the second approval.">Starting a legal closure stops ordering. Reopening needs two different people.</div>
         </div>
       </article>
 
       <article class="feature feature--flip">
         <div class="feature__copy reveal">
-          <h3>Pause one delivery method, not the store</h3>
-          <p>When delivery can’t run, pause it and write the notice shoppers see. The other methods stay open, and orders already placed aren’t affected.</p>
+          <h3>Find every mention of THCA in one list</h3>
+          <p>When the way you can describe a product changes, Green Loom lists every saved product and label text that still says THCA or THC-A, so updating your wording is one list to work through.</p>
           <ul class="points">
-            <li>Start now or later, with an optional time to resume</li>
-            <li>A legal closure stops all ordering; reopening takes a reason and two different people</li>
+            <li>Names, descriptions, tags, search text and label text</li>
+            <li>Lab numbers and label potency stay as they are</li>
           </ul>
         </div>
         <div class="reveal">
-          <div class="demo" data-demo="pause" role="img" aria-label="Sample data: staff pause Local delivery. Shoppers then see a notice that local delivery is paused, while Pickup and Shipping stay open.">Sample: pausing local delivery leaves pickup and shipping open.</div>
+          <div class="demo" data-demo="thca" role="img" aria-label="A notice says three saved texts still say THCA or THC-A. Opening it lists each one, with the product or label, the field and the text, and the term marked.">One list shows every saved text that still says THCA or THC-A.</div>
         </div>
       </article>
-      <p class="demo-note">Sample data.</p>
-    </div>
-  </section>
 
-  <section class="section" id="matters" aria-labelledby="matters-title">
-    <div class="section__inner">
-      <div class="section__intro reveal">
-        <h2 id="matters-title">The checks happen because of how the work is done</h2>
-      </div>
-      <div class="matters reveal">
-        <div>
-          <p>When these steps share a record, nobody has to be the link between them. A product can’t be published without a checked, in-date lab record if the store requires one. A pickup or local delivery can’t be completed until staff confirm the ID check.</p>
-          <p>And when a question comes up later, the order’s age check names the staff member who looked at the ID and when.</p>
-        </div>
-        <div class="edges">
-          <h3>Where the edges are today</h3>
-          <ul>
-            <li>Age is confirmed by the shopper at checkout and by staff checking ID in person. Green Loom does not verify identity online.</li>
-            <li>Staff record payment at handoff. There is no card processing yet.</li>
-            <li>Courier names and tracking numbers are typed in. There is no carrier integration yet.</li>
-            <li>Green Loom records these checks. It does not make a store compliant on its own.</li>
-          </ul>
-        </div>
-      </div>
+      <ul class="also reveal">
+        <li><strong>Total THC, counted right</strong>When a lab report is entered, THCA counts toward total THC at its converted weight.</li>
+        <li><strong>The warning, where it belongs</strong>The store’s statutory warning shows on the storefront, and packing labels carry a versioned warning.</li>
+        <li><strong>ID checks without ID copies</strong>Only the result and the staff member’s name are kept. No ID images, numbers or birth dates.</li>
+        <li><strong>A record of who did what</strong>Changes are recorded with who made them and when.</li>
+      </ul>
+      <p class="fine reveal">Green Loom records these checks and blocks the steps that depend on them. It isn’t legal advice, and it doesn’t replace knowing the rules your store works under. On a call, we’ll go through them with you.</p>
     </div>
   </section>
   </main>
@@ -353,7 +352,7 @@ h1 em{color:var(--green-ink);font-style:normal}
   <section class="closing" aria-labelledby="closing-title">
     <div class="closing__inner reveal">
       <h2 id="closing-title">Let’s talk about your store.</h2>
-      <p class="lede">We’ll walk through the app with you and hear how your store runs today.</p>
+      <p class="lede">We’ll show you the app and talk through the rules your store has to meet.</p>
       <a class="cta" href="https://calendly.com/christinakay/hemp-consultation" target="_blank" rel="noopener">Set up a call</a>
     </div>
     <footer class="site-footer">
@@ -364,10 +363,41 @@ h1 em{color:var(--green-ink);font-style:normal}
 
   <script>
     'use strict';
-    // Hero: light the same fact in every card that carries it. It cycles on its
-    // own; pointing at a fact takes over. Under reduced motion nothing cycles.
     const scene = document.getElementById('scene');
-    const facts = ['name', 'price', 'lab'];
+    const thread = document.getElementById('thread');
+    const wide = window.matchMedia('(min-width: 860px)');
+
+    // The thread: a hairline from the lab record to the catalog, and from the
+    // catalog to each card it feeds, bending once with rounded corners.
+    function link(a, b) {
+      const x1 = a.right, y1 = a.mid, x2 = b.left, y2 = b.mid, xm = (x1 + x2) / 2;
+      const dy = y2 - y1;
+      if (Math.abs(dy) < 2) return `M${x1} ${y1}H${x2}`;
+      const r = Math.min(10, Math.abs(dy) / 2), s = Math.sign(dy);
+      return `M${x1} ${y1}H${xm - r}Q${xm} ${y1} ${xm} ${y1 + s * r}V${y2 - s * r}Q${xm} ${y2} ${xm + r} ${y2}H${x2}`;
+    }
+    function draw() {
+      if (!wide.matches) { thread.replaceChildren(); return; }
+      const box = scene.getBoundingClientRect();
+      const [lab, cat, page, order] = [...scene.querySelectorAll('.rep__card')].map(el => {
+        const r = el.getBoundingClientRect();
+        return {left: r.left - box.left, right: r.right - box.left, mid: (r.top + r.bottom) / 2 - box.top};
+      });
+      const keep = thread.childElementCount === 3;
+      [link(lab, cat), link(cat, page), link(cat, order)].forEach((d, i) => {
+        let p = thread.children[i];
+        if (!p) { p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); p.setAttribute('pathLength', '1'); thread.append(p); }
+        p.setAttribute('d', d);
+        if (keep) p.style.animation = 'none';
+      });
+    }
+    new ResizeObserver(draw).observe(scene);
+    wide.addEventListener('change', draw);
+    document.fonts?.ready.then(draw);
+
+    // Light the same fact in every card that carries it. It cycles on its own;
+    // pointing at a fact takes over. Under reduced motion nothing cycles.
+    const facts = ['batch', 'results', 'name'];
     const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
     let at = -1, held = false;
     setInterval(() => {

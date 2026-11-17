@@ -1,6 +1,6 @@
 # Rehearsal: Green Loom landing page demos
 
-Three StageShow scenes, built with the kit (`kit/`) and compiled to
+Three StageShow scenes (workflow, closure, thca), built with the kit (`kit/`) and compiled to
 `../site/assets/demos/` with `npm run build`. The hero is plain HTML and CSS.
 Every label and status word in a scene is copied from the app
 (greenloom/retail-admin); the data is sample data.
@@ -19,20 +19,29 @@ Sources: `coa-sheet.tsx` (Verify COA, "This product can now be published."),
 Simplified: one card stands in for several screens; "Accept order…" opens a
 sheet in the app and is one press here.
 
-## price-book
-Typing a cost per gram lands "Profit" under each price. Sources:
-`pricing/price-grid.tsx`, `pricing/rounding-controls.tsx`. Each profit is
-price − grams × cost; tier names and prices are sample data.
+## closure
+Staff start a legal closure; the shopper banner opens; one approval lands and
+the store stays closed until a different person approves. Sources:
+`storefront/interruptions-panel.tsx` (trigger, callout, approvals line,
+second-approval sentence), `shopper/store-header.tsx` (banner),
+`commands/storefront/manage-interruptions.ts` (two different approvers, each
+with an authenticator code).
 
-## pause
-Staff pause Local delivery; the shopper banner opens and the method is marked
-paused. Sources: `storefront/interruptions-panel.tsx`,
-`shopper/store-header.tsx` (the banner sentence). The "Open / Paused" column
-in the shopper card is a simplification of how checkout lists methods.
+## thca
+The settings notice opens the THCA wording list and the term is marked in
+each row. Sources: `settings/store/page.tsx` (notice, "See where"),
+`settings/thca-worklist/page.tsx` (title, meta, columns),
+`manage-store-identity.ts` (field names). Product names and texts are
+illustrative.
+
+## Data
+The demo product is gummies, not flower: the team's Georgia rule research
+(`greenloom/_archive/.../research-synthesis-ga-hemp-rule-read-and-d8449.md`)
+records that Georgia prohibits retail sale of hemp flower.
 
 ## Checked
 In the app's preview browser (Chromium) at 1280 and 375 wide: all three scenes
-play, the workflow auto-advances and replays, no console errors, no
+play, the workflow auto-advances, no console errors, no
 horizontal scroll at 375.
 
 ## Not checked

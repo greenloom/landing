@@ -97,24 +97,28 @@
   .wf-lanes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
+    gap: 2px;
     height: 0;
     opacity: 0;
     overflow: hidden;
     transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   }
-  .wf-lanes[data-show] { height: 28px; opacity: 1; }
+  .wf-lanes[data-show] { opacity: 1; }
+  /* The board's four lanes as one segmented track: the order's lane is the
+     raised segment. No rings, so nothing reads as a stray border. */
+  .wf-lanes { padding: 0 3px; border-radius: 8px; background: #e6e9e8; }
+  .wf-lanes[data-show] { height: 32px; padding: 3px; }
   .wf-lanes span {
     display: grid;
     place-items: center;
-    height: 28px;
+    height: 26px;
     border-radius: 6px;
-    color: var(--ss-text-faint);
+    color: var(--ss-text);
     font-size: 12px;
     font-weight: 500;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   }
-  .wf-lanes span[data-on] { background: var(--ss-surface); box-shadow: 0 0 0 1px rgba(0, 24, 8, 0.125); color: var(--ss-text-strong); }
+  .wf-lanes span[data-on] { background: var(--ss-surface); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.04); color: var(--ss-text-strong); }
 
   .wf-card, .wf-menu {
     display: flex;

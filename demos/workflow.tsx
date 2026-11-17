@@ -16,11 +16,11 @@ type S = { beat: number }
 type Tone = 'neutral' | 'info' | 'pending' | 'success'
 
 const STEPS = [
-  { name: 'Record the batch', text: 'Enter the lab report once: lab, batch, dates and results. Stock arrives as lots under that record.', beats: 1 },
-  { name: 'Publish the listing', text: 'A product goes on the menu once it has a price and a checked lab record. Shoppers see the same lab results.', beats: 2 },
-  { name: 'Customer confirms 21+', text: 'At checkout the shopper confirms they are 21 or older. No ID, photo or birth date is collected online.', beats: 3 },
-  { name: 'Work the order', text: 'The order arrives with its stock held and its payment and age status attached. Accept it, pack it, mark it ready.', beats: 3 },
-  { name: 'Hand it off', text: 'Handoff completes only when staff confirm they checked a government ID and collected payment. The result is kept, never the ID.', beats: 3 },
+  { name: 'Check the lab report', text: 'Enter the batch’s lab report once and check it. Its dates decide whether the product can be sold.', beats: 1 },
+  { name: 'Publish only what’s tested', text: 'A product reaches the menu only with a checked, in-date lab record, and shoppers see the same results.', beats: 2 },
+  { name: 'Confirm age at checkout', text: 'Shoppers confirm they’re 21 or older and are told to bring ID. Nothing about their ID is collected online.', beats: 3 },
+  { name: 'Keep the order’s facts together', text: 'Payment, held stock and the age check travel with the order while staff accept it and pack it.', beats: 3 },
+  { name: 'Check ID at the counter', text: 'Handoff completes only after staff confirm the ID check and payment. The result and their name are kept, never the ID.', beats: 3 },
 ] as const
 
 const LANES = ['On hold', 'In queue', 'Packing', 'Dispatched']
@@ -83,7 +83,7 @@ function view(step: number, b: number): View {
           <Fact label="Lab">Tidewater Labs</Fact>
           <Fact label="Tested on">Jun 1, 2026</Fact>
           <Fact label="Valid until">Jun 1, 2027</Fact>
-          <Fact label="THC · CBD">22.5% · 0.3%</Fact>
+          <Fact label="THC · CBD">0.28% · 1.1%</Fact>
           <Fact label="Lot">LOT-0611 · 24 units</Fact>
         </>
       ),
@@ -92,11 +92,11 @@ function view(step: number, b: number): View {
     }
   if (step === 1)
     return {
-      crumb: 'Catalog', title: 'Coastal Haze Flower', bodyKey: '1',
+      crumb: 'Catalog', title: 'Coastal Haze Gummies', bodyKey: '1',
       tag: b ? { word: 'Published', tone: 'success' } : { word: 'Draft', tone: 'neutral' },
       body: (
         <>
-          <Fact label="Option">3.5 g</Fact>
+          <Fact label="Option">20 ct</Fact>
           <Fact label="Price">$42.00</Fact>
           <Fact label="Available">24</Fact>
           <Fact label="Lab record"><span className="wf-tag" data-tone="success">Lab record checked</span></Fact>
@@ -107,7 +107,7 @@ function view(step: number, b: number): View {
   if (step === 2) {
     if (b < 2)
       return {
-        crumb: 'Oil & Eve · Checkout', title: 'Age', bodyKey: '2a', tag: { word: 'Step 2 of 4', tone: 'neutral' },
+        crumb: 'Marsh Lane Hemp · Checkout', title: 'Age', bodyKey: '2a', tag: { word: 'Step 2 of 4', tone: 'neutral' },
         body: (
           <>
             <p className="wf-say">This store sells only to people 21 or older. You’ll also show a government photo ID when you pick up or receive your order. We don’t ask for your ID or a photo here.</p>
@@ -117,12 +117,12 @@ function view(step: number, b: number): View {
         act: 'Continue', locked: b === 0,
       }
     return {
-      crumb: 'Oil & Eve · Checkout', bodyKey: '2b',
+      crumb: 'Marsh Lane Hemp · Checkout', bodyKey: '2b',
       title: b > 2 ? 'Order placed' : 'Final review',
       tag: b > 2 ? { word: order, tone: 'success' } : { word: 'Step 4 of 4', tone: 'neutral' },
       body: (
         <>
-          <Fact label="1 × Coastal Haze Flower · 3.5 g">$42.00</Fact>
+          <Fact label="1 × Coastal Haze Gummies · 20 ct">$42.00</Fact>
           <Fact label="Pickup">Free</Fact>
           <Fact label="Payment">Due at pickup</Fact>
         </>
@@ -142,7 +142,7 @@ function view(step: number, b: number): View {
           <Fact label="Fulfillment"><Tag tone={b === 3 ? 'success' : b === 2 ? 'info' : 'neutral'}>{['Scheduled', 'Scheduled', 'Packing', 'Ready'][b]}</Tag></Fact>
         </>
       ),
-      act: ['Accept order', 'Start packing', 'Mark ready', 'Ready for pickup'][b],
+      act: ['Accept order', 'Start packing', 'Mark ready', 'Marked ready'][b],
     }
   const done = b === 3
   return {
@@ -151,7 +151,7 @@ function view(step: number, b: number): View {
     body: (
       <>
         <Fact label="Payment"><Tag tone={done ? 'success' : 'pending'}>{done ? 'Paid' : 'Due at pickup'}</Tag></Fact>
-        <Fact label="Age check" note={done ? 'ID at handoff by Christina' : undefined}><Tag tone="success">Age confirmed</Tag></Fact>
+        <Fact label="Age check" note={done ? 'ID at handoff by Dana' : undefined}><Tag tone="success">Age confirmed</Tag></Fact>
         <Fact label="Fulfillment"><Tag tone="success">{done ? 'Done' : 'Ready'}</Tag></Fact>
         <Collapse open={b > 0 && !done}>
           <Tick on={b > 1}>I collected $42.00 and checked the customer’s government ID and they are of legal age.</Tick>
@@ -199,7 +199,7 @@ export default function Workflow() {
         <button type="button" className="wf-replay" onClick={() => go(0)} data-show={ended || undefined}>Replay from the start</button>
       </div>
 
-      <div className="wf-stage" role="img" aria-label={`Sample data. Step ${step + 1} of 5, ${STEPS[step].name}: ${STEPS[step].text}`}>
+      <div className="wf-stage" role="img" aria-label={`Step ${step + 1} of 5, ${STEPS[step].name}: ${STEPS[step].text}`}>
         <Stage<S>
           width={560}
           height={452}
@@ -233,12 +233,12 @@ export default function Workflow() {
                 {/* The listing's other form: what a shopper sees once it is published */}
                 <Collapse open={step === 1 && s.beat >= 2} reveal="drop">
                   <div className="wf-menu">
-                    <span className="wf-crumb">On the menu</span>
+                    <span className="wf-crumb">Product page</span>
                     <div className="wf-menu__row">
-                      <span className="wf-menu__name">Coastal Haze Flower<small>3.5 g</small></span>
+                      <span className="wf-menu__name">Coastal Haze Gummies<small>20 ct</small></span>
                       <span className="wf-menu__price">$42.00</span>
                     </div>
-                    <span className="wf-menu__lab">Lab results · THC 22.5% · CBD 0.3% · Valid until Jun 1, 2027</span>
+                    <span className="wf-menu__lab">Lab results · Batch CH-0611 · THC 0.28% · CBD 1.1% · Valid until Jun 1, 2027</span>
                   </div>
                 </Collapse>
               </div>
